@@ -1,0 +1,21 @@
+{
+  "name": "dogma-headless",
+  "version": "1.4.0",
+  "description": "Dogma headless app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dogma-core": "^1.4.12",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.9.4",
+    "typescript": "^5.3.2"
+  }
+}
