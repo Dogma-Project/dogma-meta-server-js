@@ -1,17 +1,37 @@
 {
   "name": "@dogma-project/headless-meta",
-  "version": "0.4.0",
   "description": "Dogma headless app",
-  "main": "index.js",
+  "version": "0.4.1",
+  "main": "./dist/index.js",
+  "types": "./types/index.d.ts",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Rotegott",
+    "email": "rotegott@dogma-project.org",
+    "url": "https://dogma-project.org/"
+  },
+  "homepage": "https://meta.dogma-project.org/",
+  "keywords": [
+    "dogma",
+    "dogma meta",
+    "dogma-headless",
+    "decentralization",
+    "p2p"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dogma-Project/dogma-headless-js"
+  },
+  "bugs": {
+    "url": "https://github.com/Dogma-Project/dogma-headless-js/issues",
+    "email": "rotegott@dogma-project.org"
+  },
   "dependencies": {
-    "dogma-core": "^1.4.12",
+    "@dogma-project/core": "^0.4.1",
     "express": "^4.18.2"
   },
   "devDependencies": {
