@@ -1,8 +1,9 @@
 {
-  "name": "dogma-headless",
-  "version": "1.4.0",
+  "name": "@dogma-project/headless-meta",
+  "version": "0.4.0",
   "description": "Dogma headless app",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
