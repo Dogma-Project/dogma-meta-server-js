@@ -1,11 +1,12 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.4.1",
+  "version": "0.4.8",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "private": true,
   "scripts": {
+    "start": "tsc && node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
@@ -31,7 +32,8 @@
     "email": "rotegott@dogma-project.org"
   },
   "dependencies": {
-    "@dogma-project/core": "^0.4.1",
+    "@dogma-project/core": "^0.4.8",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2"
   },
   "devDependencies": {
