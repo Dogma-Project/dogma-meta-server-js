@@ -1,7 +1,9 @@
 import express from "express";
 import apiRouter from "./routers/api";
 import { System } from "./core";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 
 app.use(express.json());
@@ -12,7 +14,9 @@ app.get("/", (req, res) => {
 app.use("/api", apiRouter);
 app.use("/events", () => {});
 
-app.listen(3000, () => {
-  console.log("Server started");
+const port = process.env.HEADLESS_PORT || 4321;
+
+app.listen(port, () => {
+  System.logger.info("API", "Starting Headless Meta server on port:", port);
   System.run();
 });
