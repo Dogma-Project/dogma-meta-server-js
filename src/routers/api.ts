@@ -8,6 +8,9 @@ import notFoundErrorMiddleware from "../middlewares/notFoundError";
 
 import servicesRouter from "./api/services-router";
 import coreRouter from "./api/core-router";
+import keysRouter from "./api/keys-router";
+import userRouter from "./api/user-router";
+import nodeRouter from "./api/node-router";
 
 const router = express.Router();
 
@@ -16,6 +19,9 @@ router.get("/info", (req, res) => res.json({ status: "ok 2" }));
 
 router.use("/services", servicesRouter);
 router.use("/core", coreRouter);
+router.use("/keys", keysRouter);
+router.use("/user", userRouter);
+router.use("/node", nodeRouter);
 
 router.use(clientErrorMiddleware);
 router.use(serverErrorMiddleware);
