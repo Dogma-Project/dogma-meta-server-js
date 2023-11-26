@@ -23,28 +23,26 @@ This package is a dependency for Dogma Meta Application, which is currently in a
 ## Installation
 
 ```
-git clone git@github.com:Dogma-Project/dogma-core-js.git
+git clone https://github.com/Dogma-Project/dogma-headless-js
+cd dogma-headless-js
+npm install
 ```
 
-or
+## Configuration
 
-```
-npm i dogma-core
-```
+1. Copy .env.default file without ".default" part in name;
+2. Uncomment and set some needed params.
 
 ## Usage
 
 ```
-npm run auto
+npm run start
 ```
-
-## History
-
-TODO: Write history
 
 ## Credits
 
-TODO: Write credits
+Author: rotegott <rotegott@dogma-project.org>\
+[Official page](https://meta.dogma-project.org/)
 
 ## License
 
