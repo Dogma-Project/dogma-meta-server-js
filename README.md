@@ -1,4 +1,4 @@
-# Dogma Project Meta
+# Dogma Meta (Headless)
 
 **Dogma Meta** is a cross-platform, non-anonymous, privacy-oriented decentralized communication platform written in TypeScript.
 
