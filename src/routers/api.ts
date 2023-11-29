@@ -11,6 +11,7 @@ import coreRouter from "./api/core-router";
 import keysRouter from "./api/keys-router";
 import userRouter from "./api/user-router";
 import nodeRouter from "./api/node-router";
+import dhtRouter from "./api/dht-router";
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.use("/core", coreRouter);
 router.use("/keys", keysRouter);
 router.use("/user", userRouter);
 router.use("/node", nodeRouter);
+router.use("/dht", dhtRouter);
 
 router.use(clientErrorMiddleware);
 router.use(serverErrorMiddleware);
