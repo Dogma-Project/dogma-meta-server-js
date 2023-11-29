@@ -1,11 +1,12 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
     "start": "tsc && node ./dist/index.js",
+    "empty": "tsc && prefix=empty loglevel=4 node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {

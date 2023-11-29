@@ -20,6 +20,8 @@ export declare const ERRORS: {
     INVALID_CREDENTIALS: number;
     INVALID_LOGIN_CODE: number;
     INVALID_NODE_PREFIX: number;
+    KEY_IS_NOT_EMPTY: number;
+    UNKNOWN_KEY_TYPE: number;
     NOT_SIGNED: number;
 };
 export declare const CLIENT_STATUSES: {

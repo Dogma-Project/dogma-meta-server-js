@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { createKey } from "../../controllers/keys";
 
 const router = Router();
 
@@ -7,9 +8,7 @@ router
   .get(() => {
     // get info
   })
-  .post(() => {
-    // create
-  })
+  .post(createKey)
   .put(() => {
     // import
   });
