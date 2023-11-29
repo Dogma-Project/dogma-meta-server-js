@@ -23,6 +23,7 @@ export declare const ERRORS: {
     KEY_IS_NOT_EMPTY: number;
     UNKNOWN_KEY_TYPE: number;
     NOT_SIGNED: number;
+    INVALID_PARAMS: number;
 };
 export declare const CLIENT_STATUSES: {
     BAD_REQUEST: number;

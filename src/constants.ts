@@ -25,6 +25,7 @@ export const ERRORS = {
   KEY_IS_NOT_EMPTY: 1006,
   UNKNOWN_KEY_TYPE: 1007,
   NOT_SIGNED: 1008,
+  INVALID_PARAMS: 1009,
 };
 
 export const CLIENT_STATUSES = {
