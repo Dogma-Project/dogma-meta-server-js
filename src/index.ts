@@ -2,10 +2,12 @@ import express from "express";
 import apiRouter from "./routers/api";
 import { System } from "./core";
 import dotenv from "dotenv";
+import corsMiddleware from "./middlewares/cors";
 
 dotenv.config();
 const app = express();
 
+app.use(corsMiddleware);
 app.use(express.json());
 
 app.get("/", (req, res) => {

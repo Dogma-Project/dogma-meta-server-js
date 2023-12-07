@@ -1,87 +1,86 @@
 import { Request, Response, NextFunction } from "express";
-import { Model, State, Types } from "@dogma-project/core-meta";
+import { Model, State } from "@dogma-project/core-meta";
 import ClientError from "../helpers/clientError";
 import { CLIENT_STATUSES, ERRORS } from "../constants";
-
-const { Event } = Types;
+import { C_Event } from "@dogma-project/constants-meta";
 
 export function getConfig(req: Request, res: Response, next: NextFunction) {
   res.json({
-    [Event.Type.configRouter]:
-      State.stateManager.state[Event.Type.configRouter],
-    [Event.Type.configDhtLookup]:
-      State.stateManager.state[Event.Type.configDhtLookup],
-    [Event.Type.configDhtAnnounce]:
-      State.stateManager.state[Event.Type.configDhtAnnounce],
-    [Event.Type.configDhtBootstrap]:
-      State.stateManager.state[Event.Type.configDhtBootstrap],
-    [Event.Type.configAutoDefine]:
-      State.stateManager.state[Event.Type.configAutoDefine],
-    [Event.Type.configExternal]:
-      State.stateManager.state[Event.Type.configExternal],
-    [Event.Type.configLocalDiscovery]:
-      State.stateManager.state[Event.Type.configLocalDiscovery],
-    [Event.Type.configPublicIpV4]:
-      State.stateManager.state[Event.Type.configPublicIpV4],
+    [C_Event.Type.configRouter]:
+      State.stateManager.state[C_Event.Type.configRouter],
+    [C_Event.Type.configDhtLookup]:
+      State.stateManager.state[C_Event.Type.configDhtLookup],
+    [C_Event.Type.configDhtAnnounce]:
+      State.stateManager.state[C_Event.Type.configDhtAnnounce],
+    [C_Event.Type.configDhtBootstrap]:
+      State.stateManager.state[C_Event.Type.configDhtBootstrap],
+    [C_Event.Type.configAutoDefine]:
+      State.stateManager.state[C_Event.Type.configAutoDefine],
+    [C_Event.Type.configExternal]:
+      State.stateManager.state[C_Event.Type.configExternal],
+    [C_Event.Type.configLocalDiscovery]:
+      State.stateManager.state[C_Event.Type.configLocalDiscovery],
+    [C_Event.Type.configPublicIpV4]:
+      State.stateManager.state[C_Event.Type.configPublicIpV4],
   });
 }
 
 export function setConfig(req: Request, res: Response, next: NextFunction) {
   let count = 0;
-  if (Event.Type.configRouter in req.body) {
+  if (C_Event.Type.configRouter in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configRouter,
-      value: Number(req.body[Event.Type.configRouter]),
+      param: C_Event.Type.configRouter,
+      value: Number(req.body[C_Event.Type.configRouter]),
     });
   }
-  if (Event.Type.configDhtAnnounce in req.body) {
+  if (C_Event.Type.configDhtAnnounce in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configDhtAnnounce,
-      value: Number(req.body[Event.Type.configDhtAnnounce]),
+      param: C_Event.Type.configDhtAnnounce,
+      value: Number(req.body[C_Event.Type.configDhtAnnounce]),
     });
   }
-  if (Event.Type.configDhtLookup in req.body) {
+  if (C_Event.Type.configDhtLookup in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configDhtLookup,
-      value: Number(req.body[Event.Type.configDhtLookup]),
+      param: C_Event.Type.configDhtLookup,
+      value: Number(req.body[C_Event.Type.configDhtLookup]),
     });
   }
-  if (Event.Type.configDhtBootstrap in req.body) {
+  if (C_Event.Type.configDhtBootstrap in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configDhtBootstrap,
-      value: Number(req.body[Event.Type.configDhtBootstrap]),
+      param: C_Event.Type.configDhtBootstrap,
+      value: Number(req.body[C_Event.Type.configDhtBootstrap]),
     });
   }
-  if (Event.Type.configAutoDefine in req.body) {
+  if (C_Event.Type.configAutoDefine in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configAutoDefine,
-      value: !!req.body[Event.Type.configAutoDefine],
+      param: C_Event.Type.configAutoDefine,
+      value: !!req.body[C_Event.Type.configAutoDefine],
     });
   }
-  if (Event.Type.configLocalDiscovery in req.body) {
+  if (C_Event.Type.configLocalDiscovery in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configLocalDiscovery,
-      value: !!req.body[Event.Type.configLocalDiscovery],
+      param: C_Event.Type.configLocalDiscovery,
+      value: !!req.body[C_Event.Type.configLocalDiscovery],
     });
   }
-  if (Event.Type.configExternal in req.body) {
+  if (C_Event.Type.configExternal in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configExternal,
-      value: String(req.body[Event.Type.configExternal]),
+      param: C_Event.Type.configExternal,
+      value: String(req.body[C_Event.Type.configExternal]),
     });
   }
-  if (Event.Type.configPublicIpV4 in req.body) {
+  if (C_Event.Type.configPublicIpV4 in req.body) {
     count++;
     Model.configModel.persistConfig({
-      param: Event.Type.configPublicIpV4,
-      value: String(req.body[Event.Type.configPublicIpV4]),
+      param: C_Event.Type.configPublicIpV4,
+      value: String(req.body[C_Event.Type.configPublicIpV4]),
     });
   }
 
