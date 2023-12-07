@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { State, Types } from "@dogma-project/core";
+import { State, Types } from "@dogma-project/core-meta";
 
 export function getServices(req: Request, res: Response, next: NextFunction) {
   const services = State.stateManager.state[Types.Event.Type.services];

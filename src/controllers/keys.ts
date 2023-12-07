@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { State, Types, Model, Keys } from "@dogma-project/core";
+import { State, Types, Model, Keys } from "@dogma-project/core-meta";
 import ClientError from "../helpers/clientError";
 import { CLIENT_STATUSES, ERRORS } from "../constants";
 
