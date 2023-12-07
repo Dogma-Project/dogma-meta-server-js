@@ -1,7 +1,7 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -25,10 +25,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dogma-Project/dogma-headless-js"
+    "url": "https://github.com/Dogma-Project/dogma-meta-headless-js"
   },
   "bugs": {
-    "url": "https://github.com/Dogma-Project/dogma-headless-js/issues",
+    "url": "https://github.com/Dogma-Project/dogma-meta-headless-js/issues",
     "email": "rotegott@dogma-project.org"
   },
   "dependencies": {

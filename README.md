@@ -23,8 +23,8 @@ This package is a part of **Dogma Meta** Application, which is currently in acti
 ## Installation
 
 ```
-git clone https://github.com/Dogma-Project/dogma-headless-js
-cd dogma-headless-js
+git clone https://github.com/Dogma-Project/dogma-meta-headless-js
+cd dogma-meta-headless-js
 npm install
 ```
 
