@@ -1,13 +1,14 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.5.12",
+  "version": "0.5.15",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
     "start": "tsc && node ./dist/index.js",
     "empty": "tsc && prefix=empty loglevel=4 node ./dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node ./postinstall.js"
   },
   "author": {
     "name": "Rotegott",
@@ -32,6 +33,7 @@
     "email": "rotegott@dogma-project.org"
   },
   "dependencies": {
+    "@dogma-project/interface-meta": "git@github.com:Dogma-Project/dogma-meta-interface-js.git",
     "@dogma-project/constants-meta": "^0.5.1",
     "@dogma-project/core-meta": "^0.5.25",
     "dotenv": "^16.3.1",

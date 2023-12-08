@@ -13,5 +13,6 @@
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "./types"
-  }
+  },
+  "include": ["src/"]
 }

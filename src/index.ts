@@ -9,10 +9,8 @@ const app = express();
 
 app.use(corsMiddleware);
 app.use(express.json());
+app.use("/", express.static("public"));
 
-app.get("/", (req, res) => {
-  res.json("interface");
-});
 app.use("/api", apiRouter);
 app.use("/events", () => {});
 
