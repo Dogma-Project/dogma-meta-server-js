@@ -7,6 +7,6 @@ export default function corsMiddleware(
 ) {
   res.setHeader("Access-Control-Allow-Origin", "*"); // edit
   res.setHeader("Access-Control-Allow-Headers", "*"); // edit
-  // res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "*");
   next();
 }
