@@ -26,6 +26,8 @@ app.listen(port, host, () => {
     "API",
     `Started Dogma Meta Headless server on [http://${host}:${port}]`
   );
+  console.log(__filename);
+  console.log(__dirname);
   System.run();
 });
 
