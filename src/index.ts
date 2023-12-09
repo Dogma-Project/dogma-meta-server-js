@@ -1,9 +1,12 @@
 import express from "express";
+import dotenv from "dotenv";
+
 import apiRouter from "./routers/api";
 import { System } from "./core";
-import dotenv from "dotenv";
 import corsMiddleware from "./middlewares/cors";
 import Events from "./controllers/events";
+
+import * as Core from "@dogma-project/core-meta";
 
 dotenv.config();
 const app = express();
@@ -25,3 +28,5 @@ app.listen(port, host, () => {
   );
   System.run();
 });
+
+export default Core;
