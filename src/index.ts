@@ -13,7 +13,7 @@ const app = express();
 
 app.use(corsMiddleware);
 app.use(express.json());
-app.use("/", express.static("public"));
+app.use("/", express.static("./public"));
 
 app.use("/api", apiRouter);
 app.use("/events", Events);
