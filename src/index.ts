@@ -15,9 +15,13 @@ app.use("/", express.static("public"));
 app.use("/api", apiRouter);
 app.use("/events", Events);
 
-const port = process.env.HEADLESS_PORT || 4321;
+const port = Number(process.env.HEADLESS_PORT) || 24600;
+const host = process.env.HEADLESS_HOST || "127.0.0.1";
 
-app.listen(port, () => {
-  System.logger.info("API", "Starting Headless Meta server on port:", port);
+app.listen(port, host, () => {
+  System.logger.info(
+    "API",
+    `Started Dogma Meta Headless server on [http://${host}:${port}]`
+  );
   System.run();
 });

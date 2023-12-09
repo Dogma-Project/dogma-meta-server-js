@@ -3,3 +3,4 @@ package-lock.json
 interface/node_modules/
 interface/package-lock.json
 .env
+build/
