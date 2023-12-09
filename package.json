@@ -1,8 +1,8 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.5.48",
-  "main": "./dist/index.js",
+  "version": "0.5.52",
+  "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {

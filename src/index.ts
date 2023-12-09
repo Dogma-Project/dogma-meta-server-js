@@ -1,19 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
+import path from "node:path";
 
 import apiRouter from "./routers/api";
 import { System } from "./core";
 import corsMiddleware from "./middlewares/cors";
 import Events from "./controllers/events";
 
-import * as Core from "@dogma-project/core-meta";
-
 dotenv.config();
 const app = express();
 
 app.use(corsMiddleware);
 app.use(express.json());
-app.use("/", express.static("./public"));
+app.use("/", express.static(path.resolve("./public")));
 
 app.use("/api", apiRouter);
 app.use("/events", Events);
@@ -26,9 +25,5 @@ app.listen(port, host, () => {
     "API",
     `Started Dogma Meta Headless server on [http://${host}:${port}]`
   );
-  console.log(__filename);
-  console.log(__dirname);
   System.run();
 });
-
-export default Core;
