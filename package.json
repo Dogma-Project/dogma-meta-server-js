@@ -1,17 +1,17 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.5.22",
+  "version": "0.5.41",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
-    "start": "tsc && node ./dist/index.js",
-    "empty": "tsc && prefix=empty loglevel=4 node ./dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite",
-    "build": "tsc -p ./interface/tsconfig.json && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "s:start": "tsc && node ./dist/index.js",
+    "s:empty": "tsc && prefix=empty loglevel=4 node ./dist/index.js",
+    "i:dev": "vite --config ./interface/vite.config.ts",
+    "i:build": "tsc -p ./interface/tsconfig.json && vite --config ./interface/vite.config.ts build",
+    "i:preview": "vite --config ./interface/vite.config.ts preview",
+    "s:test": "echo \"Error: no test specified\" && exit 1",
+    "i:lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "author": {
     "name": "Rotegott",
