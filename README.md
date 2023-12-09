@@ -26,6 +26,7 @@ This package is a part of **Dogma Meta** Application, which is currently in acti
 git clone https://github.com/Dogma-Project/dogma-meta-headless-js
 cd dogma-meta-headless-js
 npm install
+npm run i:build
 ```
 
 ## Configuration
@@ -36,7 +37,7 @@ npm install
 ## Usage
 
 ```
-npm run start
+npm run s:start
 ```
 
 ## Credits
