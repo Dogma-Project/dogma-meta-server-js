@@ -8,11 +8,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import CardActions from "@mui/material/CardActions";
-import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import NativeSelect from "@mui/material/NativeSelect";
+import InitScreenActions from "./parts/init-screen-actions";
 
 function CreateUser() {
   const { apiRequest } = useContext(AppContext);
@@ -79,12 +78,10 @@ function CreateUser() {
             </NativeSelect>
           </FormControl>
         </CardContent>
-        <CardActions>
-          <Button onClick={saveValue} disabled={userName.length < 3}>
-            Next
-          </Button>
-          <Button disabled>Exit</Button>
-        </CardActions>
+        <InitScreenActions
+          onConfirm={saveValue}
+          confirmDisabled={userName.length < 3}
+        ></InitScreenActions>
       </Card>
     </Container>
   );

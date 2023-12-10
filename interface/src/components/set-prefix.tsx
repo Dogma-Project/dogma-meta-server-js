@@ -4,9 +4,8 @@ import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import InitScreenActions from "./modules/parts/init-screen-actions";
 
 function SetPrefix({
   setPrefix,
@@ -34,13 +33,8 @@ function SetPrefix({
             Please, choose prefix to start app.
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Prefix is a namespace for your node. You can hold several profiles
+            and even run them simultaneously. A new prefix is a new node.
           </Typography>
           <TextField
             id="standard-basic"
@@ -49,14 +43,10 @@ function SetPrefix({
             onChange={(e) => setValue(e.target.value)}
           />
         </CardContent>
-        <CardActions>
-          <Button size="small" onClick={saveValue} disabled={value.length < 3}>
-            Next
-          </Button>
-          <Button size="small" disabled>
-            Exit
-          </Button>
-        </CardActions>
+        <InitScreenActions
+          onConfirm={saveValue}
+          confirmDisabled={value.length < 3}
+        ></InitScreenActions>
       </Card>
     </Container>
   );

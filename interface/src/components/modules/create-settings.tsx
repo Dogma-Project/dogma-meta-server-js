@@ -17,8 +17,7 @@ import NativeSelect from "@mui/material/NativeSelect";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import TextField from "@mui/material/TextField";
-import CardActions from "@mui/material/CardActions";
-import Button from "@mui/material/Button";
+import InitScreenActions from "./parts/init-screen-actions";
 
 function CreateSettings() {
   const { apiRequest } = useContext(AppContext);
@@ -199,20 +198,10 @@ function CreateSettings() {
             />
           )}
         </CardContent>
-        <CardActions
-          sx={{
-            display: "flex",
-            justifyContent: "right",
-          }}
-        >
-          <Button
-            onClick={saveValue}
-            disabled={router < 1024 || router > 65536}
-          >
-            Next
-          </Button>
-          <Button disabled>Exit</Button>
-        </CardActions>
+        <InitScreenActions
+          onConfirm={saveValue}
+          confirmDisabled={router < 1024 || router > 65536}
+        ></InitScreenActions>
       </Card>
     </Container>
   );
