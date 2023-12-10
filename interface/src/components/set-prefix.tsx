@@ -37,6 +37,7 @@ function SetPrefix({
             and even run them simultaneously. A new prefix is a new node.
           </Typography>
           <TextField
+            fullWidth
             id="standard-basic"
             label="Set prefix"
             variant="standard"
