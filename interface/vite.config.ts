@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   root: "./interface",
   build: {
-    outDir: "../public",
+    outDir: "../dist/public",
   },
   server: {
     fs: {

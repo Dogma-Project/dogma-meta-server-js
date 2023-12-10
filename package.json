@@ -1,16 +1,16 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.6.12",
+  "version": "0.6.14",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./types/export.d.ts",
   "scripts": {
     "s:start": "tsc && node ./dist/index.js",
     "s:dev": "VITE_PORT=24599 prefix=dev tsc-watch --onSuccess 'node ./dist/index.js'",
     "s:dev:empty": "VITE_PORT=24599 prefix=empty tsc-watch --onSuccess 'node ./dist/index.js'",
     "s:build": "tsc",
-    "pkg": "pkg --output './build/dogma-meta-headless' -С GZip -t node18-linux,node18-win,node18-macos .",
+    "pkg": "tsc && pkg .",
     "i:dev": "VITE_PORT=24599 vite --config ./interface/vite.config.ts",
     "i:build": "tsc -p ./interface/tsconfig.json && vite --config ./interface/vite.config.ts build",
     "i:preview": "vite --config ./interface/vite.config.ts preview",
@@ -71,5 +71,17 @@
     "tsc-watch": "^6.0.4",
     "typescript": "^5.3.2",
     "vite": "^5.0.7"
+  },
+  "pkg": {
+    "outputPath": "./build",
+    "targets": [
+      "node18-linux",
+      "node18-win",
+      "node18-macos"
+    ],
+    "assets": [
+      "./dist/public/",
+      "./dist/public/*/**"
+    ]
   }
 }
