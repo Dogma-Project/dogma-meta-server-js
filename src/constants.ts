@@ -1,7 +1,6 @@
 export enum DEFAULTS {
-  API_PORT = 3334,
+  API_PORT = 3335,
   ADMIN_NAME = "admin",
-  USERNAME = "Dogma user",
 }
 
 export enum GROUPS {
@@ -26,6 +25,9 @@ export const ERRORS = {
   UNKNOWN_KEY_TYPE: 1007,
   NOT_SIGNED: 1008,
   INVALID_PARAMS: 1009,
+  CORE_NOT_READY: 1010,
+  CORE_DB_NOT_READY: 1011,
+  CORE_PREFIX_NOT_SET: 1012,
 };
 
 export const CLIENT_STATUSES = {

@@ -1,7 +1,6 @@
 export declare enum DEFAULTS {
-    API_PORT = 3334,
-    ADMIN_NAME = "admin",
-    USERNAME = "Dogma user"
+    API_PORT = 3335,
+    ADMIN_NAME = "admin"
 }
 export declare enum GROUPS {
     BANNED = -1,
@@ -24,6 +23,9 @@ export declare const ERRORS: {
     UNKNOWN_KEY_TYPE: number;
     NOT_SIGNED: number;
     INVALID_PARAMS: number;
+    CORE_NOT_READY: number;
+    CORE_DB_NOT_READY: number;
+    CORE_PREFIX_NOT_SET: number;
 };
 export declare const CLIENT_STATUSES: {
     BAD_REQUEST: number;

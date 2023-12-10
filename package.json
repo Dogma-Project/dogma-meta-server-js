@@ -1,19 +1,21 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.5.52",
+  "version": "0.6.1",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
     "s:start": "tsc && node ./dist/index.js",
-    "s:empty": "tsc && prefix=empty loglevel=4 node ./dist/index.js",
+    "s:dev": "VITE_PORT=24599 prefix=dev tsc-watch --onSuccess 'node ./dist/index.js'",
+    "s:dev:empty": "VITE_PORT=24599 prefix=empty tsc-watch --onSuccess 'node ./dist/index.js'",
     "pkg": "pkg --output './build/dogma-meta-headless' -С GZip -t node18-linux,node18-win,node18-macos .",
-    "i:dev": "vite --config ./interface/vite.config.ts",
+    "i:dev": "VITE_PORT=24599 vite --config ./interface/vite.config.ts",
     "i:build": "tsc -p ./interface/tsconfig.json && vite --config ./interface/vite.config.ts build",
     "i:preview": "vite --config ./interface/vite.config.ts preview",
     "s:test": "echo \"Error: no test specified\" && exit 1",
-    "i:lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "i:lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "a:dev": "npm run i:dev & npm run s:dev"
   },
   "author": {
     "name": "Rotegott",
@@ -39,7 +41,7 @@
   },
   "dependencies": {
     "@dogma-project/constants-meta": "^0.5.4",
-    "@dogma-project/core-meta": "^0.5.26",
+    "@dogma-project/core-meta": "^0.6.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2"
   },
@@ -65,6 +67,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
     "styled-components": "^6.1.1",
+    "tsc-watch": "^6.0.4",
     "typescript": "^5.3.2",
     "vite": "^5.0.7"
   }

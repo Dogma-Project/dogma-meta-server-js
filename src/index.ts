@@ -17,7 +17,8 @@ app.use("/", express.static(path.resolve("./public")));
 app.use("/api", apiRouter);
 app.use("/events", Events);
 
-const port = Number(process.env.HEADLESS_PORT) || 24600;
+const port =
+  Number(process.env.VITE_PORT) || Number(process.env.HEADLESS_PORT) || 24600;
 const host = process.env.HEADLESS_HOST || "127.0.0.1";
 
 app.listen(port, host, () => {

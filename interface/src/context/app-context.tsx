@@ -5,7 +5,7 @@ import { API_PATH } from "../const";
 
 type AdditionalParams = {
   params?: object;
-  cb?: (data: object) => void;
+  cb?: (data: object | unknown[]) => void;
 };
 
 class AppState {
@@ -14,6 +14,7 @@ class AppState {
     state: C_System.States;
   }[] = [];
   busy: boolean = true;
+  network: unknown[] = [];
 }
 
 type action = {
