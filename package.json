@@ -1,22 +1,23 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.7.1",
+  "version": "0.7.3",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/export.d.ts",
   "scripts": {
     "s:start": "tsc && node ./dist/index.js",
-    "s:dev": "VITE_PORT=24599 prefix=dev tsc-watch --onSuccess 'node ./dist/index.js'",
-    "s:dev:empty": "VITE_PORT=24599 prefix=empty tsc-watch --onSuccess 'node ./dist/index.js'",
-    "s:build": "tsc",
-    "pkg": "tsc && pkg .",
-    "i:dev": "VITE_PORT=24599 vite --config ./interface/vite.config.ts",
-    "i:build": "tsc -p ./interface/tsconfig.json && vite --config ./interface/vite.config.ts build",
+    "s:dev": "tsc-watch --onSuccess 'node ./dist/index.js'",
+    "s:dev:empty": "tsc-watch --onSuccess 'node ./dist/index.js'",
+    "i:dev": "vite --config ./interface/vite.config.ts",
     "i:preview": "vite --config ./interface/vite.config.ts preview",
     "s:test": "echo \"Error: no test specified\" && exit 1",
     "i:lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "a:dev": "npm run i:dev & npm run s:dev"
+    "a:dev": "npm run i:dev & npm run s:dev",
+    "s:build": "tsc --build",
+    "i:build": "tsc -p ./interface/tsconfig.json && vite --config ./interface/vite.config.ts build",
+    "a:build": "npm run s:build && npm run i:build",
+    "pkg": "tsc && pkg ."
   },
   "author": {
     "name": "Rotegott",

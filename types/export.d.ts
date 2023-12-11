@@ -1,7 +1,6 @@
-type ApiOptions = {
-    apiport?: number;
-    apihost?: string;
-    static?: string;
+type IFOptions = {
+    port?: number;
+    host?: string;
 };
-declare const InterfaceHost: (options?: ApiOptions) => void;
+declare const InterfaceHost: (options?: IFOptions) => void;
 export default InterfaceHost;

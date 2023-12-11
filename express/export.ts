@@ -12,21 +12,16 @@ app.use(express.json());
 
 const publicDir = path.join(__dirname, "/public");
 
-type ApiOptions = {
-  apiport?: number;
-  apihost?: string;
-  static?: string;
+type IFOptions = {
+  port?: number;
+  host?: string;
 };
 
-const InterfaceHost = (options: ApiOptions = {}) => {
-  const port =
-    options.apiport ||
-    Number(process.env.VITE_PORT) ||
-    Number(process.env.HEADLESS_PORT) ||
-    24600;
-  const host = options.apihost || process.env.HEADLESS_HOST || "127.0.0.1";
+const InterfaceHost = (options: IFOptions = {}) => {
+  const port = options.port || Number(process.env.VITE_PORT) || 24599;
+  const host = options.host || process.env.VITE_HOST || "127.0.0.1";
 
-  app.use("/", express.static(options.static || publicDir));
+  app.use("/", express.static(publicDir));
 
   app.listen(port, host, () => {
     console.info(
