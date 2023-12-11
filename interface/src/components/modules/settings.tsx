@@ -17,7 +17,7 @@ import SettingsExternal from "./settings-parts/external";
 import SaveCardAction from "./parts/save-card-action";
 
 export default function SettingsPage() {
-  const { apiRequest } = useContext(AppContext);
+  const { managerRequest } = useContext(AppContext);
 
   const [router, setRouter] = useState(0);
 
@@ -43,11 +43,11 @@ export default function SettingsPage() {
       [C_Event.Type.configAutoDefine]: autoDefine,
       [C_Event.Type.configExternal]: external || C_Defaults.external,
     };
-    apiRequest("PUT", "/config", { params });
+    managerRequest("PUT", "/config", { params });
   };
 
   useEffect(() => {
-    apiRequest("GET", "/config", {
+    managerRequest("GET", "/config", {
       cb: (data) => {
         const object = data as Configs;
         if (object[C_Event.Type.configRouter] !== undefined) {

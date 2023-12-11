@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
@@ -6,24 +6,36 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InitScreenActions from "./modules/parts/init-screen-actions";
+import NativeSelect from "@mui/material/NativeSelect";
 
 function SetPrefix({
   setPrefix,
 }: {
   setPrefix: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) {
-  const { apiRequest } = useContext(AppContext);
+  const { managerRequest } = useContext(AppContext);
 
   const [value, setValue] = useState("");
 
+  const [prefixes, setPrefixes] = useState<string[]>([]);
+
   const saveValue = () => {
-    apiRequest("POST", "/core/prefix", {
-      params: { prefix: value },
+    managerRequest("PUT", "/prefix/" + value, {
       cb: () => {
         setPrefix(value);
       },
     });
   };
+
+  useEffect(() => {
+    managerRequest("GET", "/prefixes", {
+      cb: (data) => {
+        if (Array.isArray(data)) {
+          setPrefixes(data as string[]);
+        }
+      },
+    });
+  }, []);
 
   return (
     <Container className="d-flex align-items-center justify-content-center flex-row min-vh-100">
@@ -36,11 +48,36 @@ function SetPrefix({
             Prefix is a namespace for your node. You can hold several profiles
             and even run them simultaneously. A new prefix is a new node.
           </Typography>
+
+          {prefixes.length && (
+            <NativeSelect
+              onChange={(e) => setValue(e.target.value)}
+              fullWidth
+              inputProps={{
+                name: "mda",
+                id: "uncontrolled-native",
+              }}
+              sx={{
+                my: 3,
+              }}
+            >
+              <option key="create_new" value={""} defaultValue={""}>
+                Create new
+              </option>
+              {prefixes.map((p, i) => (
+                <option key={"prefix-" + i} value={p}>
+                  {p}
+                </option>
+              ))}
+            </NativeSelect>
+          )}
+
           <TextField
             fullWidth
             id="standard-basic"
             label="Set prefix"
             variant="standard"
+            value={value}
             onChange={(e) => setValue(e.target.value)}
           />
         </CardContent>

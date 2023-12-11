@@ -18,7 +18,7 @@ import SettingsSwitch from "./settings-parts/switch";
 import SettingsExternal from "./settings-parts/external";
 
 function CreateSettings() {
-  const { apiRequest } = useContext(AppContext);
+  const { managerRequest } = useContext(AppContext);
 
   const [router, setRouter] = useState(C_Defaults.router);
 
@@ -44,7 +44,7 @@ function CreateSettings() {
       [C_Event.Type.configAutoDefine]: autoDefine,
       [C_Event.Type.configExternal]: autoDefine ? external : "",
     };
-    apiRequest("PUT", "/config", { params });
+    managerRequest("PUT", "/config", { params });
   };
 
   return (

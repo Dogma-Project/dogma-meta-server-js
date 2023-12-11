@@ -14,13 +14,13 @@ import NativeSelect from "@mui/material/NativeSelect";
 import InitScreenActions from "./parts/init-screen-actions";
 
 function CreateUser() {
-  const { apiRequest } = useContext(AppContext);
+  const { managerRequest } = useContext(AppContext);
 
   const [keyLength, setKeyLength] = useState(4096); // edit
   const [userName, setUserName] = useState(C_Defaults.userName);
 
   const saveValue = () => {
-    apiRequest("POST", "/keys", {
+    managerRequest("POST", "/keys", {
       params: {
         name: userName,
         length: keyLength,

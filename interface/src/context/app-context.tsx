@@ -31,7 +31,7 @@ type request = (
 type ContextType = {
   state: AppState;
   dispatch: React.Dispatch<action>;
-  apiRequest: request;
+  managerRequest: request;
 };
 
 const defaultValue = new AppState();
@@ -39,7 +39,7 @@ const defaultValue = new AppState();
 export const AppContext = createContext<ContextType>({
   state: defaultValue,
   dispatch: () => null,
-  apiRequest: () => null,
+  managerRequest: () => null,
 });
 
 export const AppContextProvider = (props: { children: React.ReactNode }) => {
@@ -57,7 +57,7 @@ export const AppContextProvider = (props: { children: React.ReactNode }) => {
 
   const [state, dispatch] = useReducer(tasksReducer, defaultValue);
 
-  const apiRequest = (
+  const managerRequest = (
     method: "GET" | "POST" | "PUT" | "DELETE",
     path: string,
     additional?: AdditionalParams
@@ -106,7 +106,7 @@ export const AppContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   return (
-    <AppContext.Provider value={{ state, apiRequest, dispatch }}>
+    <AppContext.Provider value={{ state, managerRequest, dispatch }}>
       {props.children}
     </AppContext.Provider>
   );

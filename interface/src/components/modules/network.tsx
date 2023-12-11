@@ -5,11 +5,11 @@ function Network() {
   const {
     state: { network },
     dispatch,
-    apiRequest,
+    managerRequest,
   } = useContext(AppContext);
 
   useEffect(() => {
-    apiRequest("GET", "/network", {
+    managerRequest("GET", "/network", {
       cb: (data) => {
         dispatch({
           type: "set",

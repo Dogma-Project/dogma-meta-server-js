@@ -14,13 +14,13 @@ import NativeSelect from "@mui/material/NativeSelect";
 import InitScreenActions from "./parts/init-screen-actions";
 
 function CreateNode() {
-  const { apiRequest } = useContext(AppContext);
+  const { managerRequest } = useContext(AppContext);
 
   const [keyLength, setKeyLength] = useState(2048); // edit
   const [nodeName, setNodeName] = useState(C_Defaults.nodeName);
 
   const saveValue = () => {
-    apiRequest("POST", "/keys", {
+    managerRequest("POST", "/keys", {
       params: {
         name: nodeName,
         length: keyLength,
