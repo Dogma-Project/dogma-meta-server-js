@@ -1,27 +1,16 @@
-import * as Core from "@dogma-project/core-meta";
-
 import express from "express";
 import dotenv from "dotenv";
 import path from "node:path";
 
-import apiRouter from "./routers/api";
-import { System } from "./core";
-import corsMiddleware from "./middlewares/cors";
-import Events from "./controllers/events";
+// import corsMiddleware from "./middlewares/cors";
 
 dotenv.config();
-const app = express();
 
-app.use(corsMiddleware);
+const app = express();
+// app.use(corsMiddleware);
 app.use(express.json());
 
-//const publicDir = path.resolve(__dirname, "public");
 const publicDir = path.join(__dirname, "/public");
-
-console.log(publicDir);
-
-app.use("/api", apiRouter);
-app.use("/events", Events);
 
 type ApiOptions = {
   apiport?: number;
@@ -29,7 +18,7 @@ type ApiOptions = {
   static?: string;
 };
 
-const Api = (options: ApiOptions = {}) => {
+const InterfaceHost = (options: ApiOptions = {}) => {
   const port =
     options.apiport ||
     Number(process.env.VITE_PORT) ||
@@ -40,12 +29,11 @@ const Api = (options: ApiOptions = {}) => {
   app.use("/", express.static(options.static || publicDir));
 
   app.listen(port, host, () => {
-    System.logger.info(
+    console.info(
       "API",
-      `Started Dogma Meta Headless server on [http://${host}:${port}]`
+      `Serving Dogma Meta interface on [http://${host}:${port}]`
     );
-    System.run();
   });
 };
 
-export { Core, Api };
+export default InterfaceHost;

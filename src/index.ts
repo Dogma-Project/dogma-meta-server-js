@@ -1,3 +1,3 @@
-import { Api } from "./export";
+import InterfaceHost from "./export";
 
-Api();
+InterfaceHost();
