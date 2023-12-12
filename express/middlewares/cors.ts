@@ -8,5 +8,6 @@ export default function corsMiddleware(
   res.setHeader("Access-Control-Allow-Origin", "*"); // edit
   res.setHeader("Access-Control-Allow-Headers", "*"); // edit
   res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Dogma-Meta-Api-Port", "11111");
   next();
 }

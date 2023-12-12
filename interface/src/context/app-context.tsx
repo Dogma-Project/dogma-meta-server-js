@@ -1,7 +1,8 @@
 import { createContext, useReducer } from "react";
 import { C_Event, C_System } from "@dogma-project/constants-meta";
+import getApiPort from "../helpers/getApiPort";
 
-import { API_PATH } from "../const";
+// import { API_PATH } from "../const";
 
 type AdditionalParams = {
   params?: object;
@@ -79,6 +80,13 @@ export const AppContextProvider = (props: { children: React.ReactNode }) => {
     if (additional && additional.params) {
       query.body = JSON.stringify(additional.params);
     }
+
+    const apiport = getApiPort();
+
+    const API_PATH = apiport
+      ? `${window.location.protocol}//${window.location.hostname}:${apiport}`
+      : "/api";
+
     fetch(API_PATH + path, query)
       .then((response) => {
         return response.json();
