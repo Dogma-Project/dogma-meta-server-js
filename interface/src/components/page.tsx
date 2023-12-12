@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { AppContext } from "../context";
+import { useState } from "react";
 import SetPrefix from "./set-prefix";
 import ServicesManager from "./services-manager";
 

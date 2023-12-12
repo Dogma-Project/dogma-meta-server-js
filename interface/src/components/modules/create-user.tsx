@@ -24,7 +24,7 @@ function CreateUser() {
       params: {
         name: userName,
         length: keyLength,
-        type: C_Keys.Type.masterKey,
+        type: C_Keys.Type.userKey,
       },
     });
   };
