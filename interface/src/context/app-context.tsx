@@ -1,8 +1,7 @@
 import { createContext, useReducer } from "react";
 import { C_API, C_Event, C_System } from "@dogma-project/constants-meta";
 import getApiPort from "../helpers/getApiPort";
-
-// import { API_PATH } from "../const";
+import { API } from "@dogma-project/core-meta/types/types";
 
 type AdditionalParams = {
   params?: object;
@@ -19,7 +18,7 @@ class AppState {
   }[] = [];
   busy: boolean = true;
   loading: boolean = false;
-  network: unknown[] = [];
+  network: API.NetworkData[] = [];
   online: boolean = false;
 }
 
