@@ -10,12 +10,16 @@ type AdditionalParams = {
 };
 
 class AppState {
+  prefix: string = "";
+  prefixes: string[] = [];
   services: {
     service: C_Event.Type.Service;
     state: C_System.States;
   }[] = [];
   busy: boolean = true;
+  loading: boolean = false;
   network: unknown[] = [];
+  online: boolean = false;
 }
 
 type action = {
@@ -37,6 +41,20 @@ type ContextType = {
 
 const defaultValue = new AppState();
 
+const busy = {
+  type: "set",
+  value: {
+    busy: true,
+  },
+};
+
+const unbusy = {
+  type: "set",
+  value: {
+    busy: false,
+  },
+};
+
 export const AppContext = createContext<ContextType>({
   state: defaultValue,
   dispatch: () => null,
@@ -45,7 +63,6 @@ export const AppContext = createContext<ContextType>({
 
 export const AppContextProvider = (props: { children: React.ReactNode }) => {
   const tasksReducer = (state: AppState, action: action) => {
-    console.log("ACT", action.type, action.value);
     switch (action.type) {
       case "set": {
         return { ...state, ...action.value };
@@ -63,12 +80,7 @@ export const AppContextProvider = (props: { children: React.ReactNode }) => {
     path: string,
     additional?: AdditionalParams
   ) => {
-    dispatch({
-      type: "set",
-      value: {
-        busy: true,
-      },
-    });
+    dispatch(busy);
     const query: RequestInit = {
       method,
       headers: {
@@ -92,23 +104,13 @@ export const AppContextProvider = (props: { children: React.ReactNode }) => {
         return response.json();
       })
       .then((data) => {
-        dispatch({
-          type: "set",
-          value: {
-            busy: false,
-          },
-        });
+        dispatch(unbusy);
         if (additional && additional.cb) {
           additional.cb(data || {});
         }
       })
       .catch((err) => {
-        dispatch({
-          type: "set",
-          value: {
-            busy: false,
-          },
-        });
+        dispatch(unbusy);
         console.error(err); // add handler
       });
   };

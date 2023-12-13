@@ -8,21 +8,24 @@ import TextField from "@mui/material/TextField";
 import InitScreenActions from "./modules/parts/init-screen-actions";
 import NativeSelect from "@mui/material/NativeSelect";
 
-function SetPrefix({
-  setPrefix,
-}: {
-  setPrefix: React.Dispatch<React.SetStateAction<string | undefined>>;
-}) {
-  const { managerRequest } = useContext(AppContext);
+function SetPrefix() {
+  const {
+    state: { prefixes },
+    managerRequest,
+    dispatch,
+  } = useContext(AppContext);
 
   const [value, setValue] = useState("");
-
-  const [prefixes, setPrefixes] = useState<string[]>([]);
 
   const saveValue = () => {
     managerRequest("PUT", "/prefix/" + value, {
       cb: () => {
-        setPrefix(value);
+        dispatch({
+          type: "set",
+          value: {
+            prefix: value,
+          },
+        });
       },
     });
   };
@@ -31,7 +34,12 @@ function SetPrefix({
     managerRequest("GET", "/prefixes", {
       cb: (data) => {
         if (Array.isArray(data)) {
-          setPrefixes(data as string[]);
+          dispatch({
+            type: "set",
+            value: {
+              prefixes: data,
+            },
+          });
         }
       },
     });
