@@ -34,7 +34,7 @@ const InterfaceHost = (options: IFOptions) => {
     }
   });
 
-  app.listen(port, host, () => {
+  app.listen(port, "0.0.0.0", () => {
     console.info(
       "API",
       `Serving Dogma Meta interface on [http://${host}:${port}]`
