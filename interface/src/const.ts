@@ -3,3 +3,9 @@ export const API_PATH = import.meta.env.DEV
   : "";
 // export const API_PATH = API_BASE + "/api";
 // export const SSE_PATH = API_BASE + "/events";
+
+declare global {
+  interface Window {
+    api: WebSocket;
+  }
+}

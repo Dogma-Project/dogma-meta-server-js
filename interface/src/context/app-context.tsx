@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import { C_Event, C_System } from "@dogma-project/constants-meta";
+import { C_API, C_Event, C_System } from "@dogma-project/constants-meta";
 import getApiPort from "../helpers/getApiPort";
 
 // import { API_PATH } from "../const";
@@ -10,6 +10,7 @@ type AdditionalParams = {
 };
 
 class AppState {
+  api: number = 0;
   prefix: string = "";
   prefixes: string[] = [];
   services: {
@@ -23,7 +24,7 @@ class AppState {
 }
 
 type action = {
-  type: string;
+  type: C_API.ApiRequestAction;
   value: object;
 };
 
@@ -42,14 +43,14 @@ type ContextType = {
 const defaultValue = new AppState();
 
 const busy = {
-  type: "set",
+  type: C_API.ApiRequestAction.set,
   value: {
     busy: true,
   },
 };
 
 const unbusy = {
-  type: "set",
+  type: C_API.ApiRequestAction.set,
   value: {
     busy: false,
   },
@@ -64,7 +65,7 @@ export const AppContext = createContext<ContextType>({
 export const AppContextProvider = (props: { children: React.ReactNode }) => {
   const tasksReducer = (state: AppState, action: action) => {
     switch (action.type) {
-      case "set": {
+      case C_API.ApiRequestAction.set: {
         return { ...state, ...action.value };
       }
       default: {

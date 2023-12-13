@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InitScreenActions from "./modules/parts/init-screen-actions";
 import NativeSelect from "@mui/material/NativeSelect";
+import { C_API } from "@dogma-project/constants-meta";
 
 function SetPrefix() {
   const {
@@ -19,11 +20,14 @@ function SetPrefix() {
 
   const saveValue = () => {
     managerRequest("PUT", "/prefix/" + value, {
-      cb: () => {
+      cb: (data) => {
+        console.log("GOT", data);
+        const api = "api" in data ? data.api : undefined;
         dispatch({
-          type: "set",
+          type: C_API.ApiRequestAction.set,
           value: {
             prefix: value,
+            api: api,
           },
         });
       },
@@ -35,7 +39,7 @@ function SetPrefix() {
       cb: (data) => {
         if (Array.isArray(data)) {
           dispatch({
-            type: "set",
+            type: C_API.ApiRequestAction.set,
             value: {
               prefixes: data,
             },

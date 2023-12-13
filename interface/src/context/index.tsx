@@ -1,5 +1,5 @@
-import { AuthContext, AuthContextProvider } from "./auth-context";
 import { AppContext, AppContextProvider } from "./app-context";
+import { WebsocketContext, WebsocketProvider } from "./ws-context";
 
-export { AuthContext, AppContext };
-export { AuthContextProvider, AppContextProvider };
+export { AppContext, WebsocketContext };
+export { AppContextProvider, WebsocketProvider };

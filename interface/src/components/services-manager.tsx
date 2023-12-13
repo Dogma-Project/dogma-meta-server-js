@@ -2,43 +2,35 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context";
 import AppLayout from "./app-layout";
 import InitLayout from "./init-layout";
-import { C_Event } from "@dogma-project/constants-meta";
-// import { SSE_PATH } from "../const";
+import { C_API, C_Event } from "@dogma-project/constants-meta";
+import { WebsocketContext } from "../context/ws-context";
 
 function ServicesManager() {
   const {
     state: { services },
     dispatch,
-    managerRequest,
   } = useContext(AppContext);
-
-  useEffect(() => {
-    // const evtSource = new EventSource(SSE_PATH);
-    // evtSource.onmessage = (e) => {
-    //   const parsed = JSON.parse(e.data);
-    //   switch (parsed.type) {
-    //     case "services":
-    //       console.log(parsed);
-    //       dispatch({ type: "set", value: { services: parsed.payload } });
-    //       break;
-    //   }
-    // };
-  }, []);
-
+  const { isReady, value, send } = useContext(WebsocketContext);
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    managerRequest("GET", "/services", {
-      cb: (data) => {
-        dispatch({
-          type: "set",
-          value: {
-            services: data,
-          },
-        });
-      },
-    });
-  }, []);
+    if (isReady) {
+      send({
+        type: C_API.ApiRequestType.services,
+        action: C_API.ApiRequestAction.get,
+      });
+    }
+  }, [isReady]);
+
+  useEffect(() => {
+    if (value && value.type === C_API.ApiRequestType.services) {
+      console.log("!!!", value);
+      dispatch({
+        type: value.action,
+        value: value.payload,
+      });
+    }
+  }, [value]);
 
   useEffect(() => {
     const user = services.find(
