@@ -3,9 +3,10 @@ import {
   C_Connection,
   C_Event,
   C_Defaults,
+  C_API,
 } from "@dogma-project/constants-meta";
 
-import { AppContext } from "../../context";
+import { WebsocketContext } from "../../context";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -18,7 +19,7 @@ import SettingsSwitch from "./settings-parts/switch";
 import SettingsExternal from "./settings-parts/external";
 
 function CreateSettings() {
-  const { managerRequest } = useContext(AppContext);
+  const { isReady, send } = useContext(WebsocketContext);
 
   const [router, setRouter] = useState(C_Defaults.router);
 
@@ -33,18 +34,26 @@ function CreateSettings() {
   const [external, setExternal] = useState(C_Defaults.external);
 
   const saveValue = () => {
-    const params: {
-      [key in C_Event.Type.Config]?: string | boolean | number;
-    } = {
-      [C_Event.Type.configRouter]: router,
-      [C_Event.Type.configDhtAnnounce]: dhtAnnounce,
-      [C_Event.Type.configDhtLookup]: dhtLookup,
-      [C_Event.Type.configDhtBootstrap]: dhtBootstrap,
-      [C_Event.Type.configLocalDiscovery]: localDiscovery,
-      [C_Event.Type.configAutoDefine]: autoDefine,
-      [C_Event.Type.configExternal]: autoDefine ? external : "",
-    };
-    managerRequest("PUT", "/config", { params });
+    if (isReady) {
+      const params: {
+        [key in C_Event.Type.Config]?: string | boolean | number;
+      } = {
+        [C_Event.Type.configRouter]: router,
+        [C_Event.Type.configDhtAnnounce]: dhtAnnounce,
+        [C_Event.Type.configDhtLookup]: dhtLookup,
+        [C_Event.Type.configDhtBootstrap]: dhtBootstrap,
+        [C_Event.Type.configLocalDiscovery]: localDiscovery,
+        [C_Event.Type.configAutoDefine]: autoDefine,
+        [C_Event.Type.configExternal]: autoDefine ? external : "",
+      };
+      send({
+        type: C_API.ApiRequestType.settings,
+        action: C_API.ApiRequestAction.set,
+        payload: params,
+      });
+    } else {
+      console.warn("offline");
+    }
   };
 
   return (

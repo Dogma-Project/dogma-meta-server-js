@@ -31,7 +31,9 @@ export const WebsocketProvider = (props: {
       socket.onopen = () => setIsReady(true);
       socket.onclose = () => setIsReady(false);
       socket.onmessage = (event) => {
-        setVal(JSON.parse(event.data));
+        const data = JSON.parse(event.data);
+        console.log("WS", data.payload);
+        setVal(data);
       };
       ws.current = socket;
       return () => {

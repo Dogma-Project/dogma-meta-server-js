@@ -3,9 +3,10 @@ import {
   C_Connection,
   C_Event,
   C_Defaults,
+  C_API,
 } from "@dogma-project/constants-meta";
 
-import { AppContext } from "../../context";
+import { WebsocketContext } from "../../context";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -17,7 +18,7 @@ import SettingsExternal from "./settings-parts/external";
 import SaveCardAction from "./parts/save-card-action";
 
 export default function SettingsPage() {
-  const { managerRequest } = useContext(AppContext);
+  const { isReady, value, send } = useContext(WebsocketContext);
 
   const [router, setRouter] = useState(0);
 
@@ -34,46 +35,57 @@ export default function SettingsPage() {
   };
 
   const saveValue = () => {
-    const params: Configs = {
-      [C_Event.Type.configRouter]: router,
-      [C_Event.Type.configDhtAnnounce]: dhtAnnounce,
-      [C_Event.Type.configDhtLookup]: dhtLookup,
-      [C_Event.Type.configDhtBootstrap]: dhtBootstrap,
-      [C_Event.Type.configLocalDiscovery]: localDiscovery,
-      [C_Event.Type.configAutoDefine]: autoDefine,
-      [C_Event.Type.configExternal]: external || C_Defaults.external,
-    };
-    managerRequest("PUT", "/config", { params });
+    if (isReady) {
+      const params: Configs = {
+        [C_Event.Type.configRouter]: router,
+        [C_Event.Type.configDhtAnnounce]: dhtAnnounce,
+        [C_Event.Type.configDhtLookup]: dhtLookup,
+        [C_Event.Type.configDhtBootstrap]: dhtBootstrap,
+        [C_Event.Type.configLocalDiscovery]: localDiscovery,
+        [C_Event.Type.configAutoDefine]: autoDefine,
+        [C_Event.Type.configExternal]: external || C_Defaults.external,
+      };
+      send({
+        type: C_API.ApiRequestType.settings,
+        action: C_API.ApiRequestAction.set,
+        payload: params,
+      });
+    }
   };
 
   useEffect(() => {
-    managerRequest("GET", "/config", {
-      cb: (data) => {
-        const object = data as Configs;
-        if (object[C_Event.Type.configRouter] !== undefined) {
-          setRouter(Number(object[C_Event.Type.configRouter]));
-        }
-        if (object[C_Event.Type.configDhtAnnounce] !== undefined) {
-          setDhtAnnounce(Number(object[C_Event.Type.configDhtAnnounce]));
-        }
-        if (object[C_Event.Type.configDhtLookup] !== undefined) {
-          setDhtLookup(Number(object[C_Event.Type.configDhtLookup]));
-        }
-        if (object[C_Event.Type.configDhtBootstrap] !== undefined) {
-          setDhtBootstrap(Number(object[C_Event.Type.configDhtBootstrap]));
-        }
-        if (object[C_Event.Type.configLocalDiscovery] !== undefined) {
-          setLocalDiscovery(!!object[C_Event.Type.configLocalDiscovery]);
-        }
-        if (object[C_Event.Type.configAutoDefine] !== undefined) {
-          setAutoDefine(!!object[C_Event.Type.configAutoDefine]);
-        }
-        if (object[C_Event.Type.configExternal] !== undefined) {
-          setExternal(object[C_Event.Type.configExternal] as string);
-        }
-      },
+    send({
+      type: C_API.ApiRequestType.settings,
+      action: C_API.ApiRequestAction.get,
     });
   }, []);
+
+  useEffect(() => {
+    if (value && value.type === C_API.ApiRequestType.settings) {
+      const object = value.payload.settings as Configs;
+      if (object[C_Event.Type.configRouter] !== undefined) {
+        setRouter(Number(object[C_Event.Type.configRouter]));
+      }
+      if (object[C_Event.Type.configDhtAnnounce] !== undefined) {
+        setDhtAnnounce(Number(object[C_Event.Type.configDhtAnnounce]));
+      }
+      if (object[C_Event.Type.configDhtLookup] !== undefined) {
+        setDhtLookup(Number(object[C_Event.Type.configDhtLookup]));
+      }
+      if (object[C_Event.Type.configDhtBootstrap] !== undefined) {
+        setDhtBootstrap(Number(object[C_Event.Type.configDhtBootstrap]));
+      }
+      if (object[C_Event.Type.configLocalDiscovery] !== undefined) {
+        setLocalDiscovery(!!object[C_Event.Type.configLocalDiscovery]);
+      }
+      if (object[C_Event.Type.configAutoDefine] !== undefined) {
+        setAutoDefine(!!object[C_Event.Type.configAutoDefine]);
+      }
+      if (object[C_Event.Type.configExternal] !== undefined) {
+        setExternal(object[C_Event.Type.configExternal] as string);
+      }
+    }
+  }, [value]);
 
   return (
     <Card>

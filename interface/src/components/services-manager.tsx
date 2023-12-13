@@ -11,6 +11,7 @@ function ServicesManager() {
     dispatch,
   } = useContext(AppContext);
   const { isReady, value, send } = useContext(WebsocketContext);
+
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function ServicesManager() {
 
   useEffect(() => {
     if (value && value.type === C_API.ApiRequestType.services) {
-      console.log("!!!", value);
+      console.log("!!!", "SERVICES", value.payload);
       dispatch({
         type: value.action,
         value: value.payload,
