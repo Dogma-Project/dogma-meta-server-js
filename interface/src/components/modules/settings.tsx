@@ -6,7 +6,7 @@ import {
   C_API,
 } from "@dogma-project/constants-meta";
 
-import { WebsocketContext } from "../../context";
+import { AppContext, WebsocketContext } from "../../context";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -16,19 +16,35 @@ import SettingsDht from "./settings-parts/dht";
 import SettingsSwitch from "./settings-parts/switch";
 import SettingsExternal from "./settings-parts/external";
 import SaveCardAction from "./parts/save-card-action";
+import LocalStorage from "../../helpers/localStorage";
 
 export default function SettingsPage() {
   const { isReady, value, send } = useContext(WebsocketContext);
+  const {
+    state: { prefix },
+  } = useContext(AppContext);
 
-  const [router, setRouter] = useState(0);
+  const st = new LocalStorage(prefix);
 
-  const [dhtAnnounce, setDhtAnnounce] = useState(C_Connection.Group.nobody);
-  const [dhtLookup, setDhtLookup] = useState(C_Connection.Group.nobody);
-  const [dhtBootstrap, setDhtBootstrap] = useState(C_Connection.Group.nobody);
+  const [router, setRouter] = useState(st.get("settings-router", 0));
 
-  const [localDiscovery, setLocalDiscovery] = useState(false);
-  const [autoDefine, setAutoDefine] = useState(false);
-  const [external, setExternal] = useState(C_Defaults.external);
+  const [dhtAnnounce, setDhtAnnounce] = useState(
+    st.get("settings-dhtAnnounce", C_Connection.Group.nobody)
+  );
+  const [dhtLookup, setDhtLookup] = useState(
+    st.get("settings-dhtLookup", C_Connection.Group.nobody)
+  );
+  const [dhtBootstrap, setDhtBootstrap] = useState(
+    st.get("settings-dhtBootstrap", C_Connection.Group.nobody)
+  );
+
+  const [localDiscovery, setLocalDiscovery] = useState(
+    st.get("settings-localDiscovery", true)
+  );
+  const [autoDefine, setAutoDefine] = useState(
+    st.get("settings-autoDefine", true)
+  );
+  const [external, setExternal] = useState("");
 
   type Configs = {
     [key in C_Event.Type.Config]?: string | boolean | number;
@@ -50,6 +66,12 @@ export default function SettingsPage() {
         action: C_API.ApiRequestAction.set,
         payload: params,
       });
+      st.set("settings-router", router);
+      st.set("settings-dhtAnnounce", dhtAnnounce);
+      st.set("settings-dhtLookup", dhtLookup);
+      st.set("settings-dhtBootstrap", dhtBootstrap);
+      st.set("settings-localDiscovery", localDiscovery);
+      st.set("settings-autoDefine", autoDefine);
     }
   };
 
@@ -64,25 +86,32 @@ export default function SettingsPage() {
     if (value && value.type === C_API.ApiRequestType.settings) {
       const object = value.payload.settings as Configs;
       if (object[C_Event.Type.configRouter] !== undefined) {
-        setRouter(Number(object[C_Event.Type.configRouter]));
+        const val = Number(object[C_Event.Type.configRouter]);
+        setRouter(val);
       }
       if (object[C_Event.Type.configDhtAnnounce] !== undefined) {
-        setDhtAnnounce(Number(object[C_Event.Type.configDhtAnnounce]));
+        const val = Number(object[C_Event.Type.configDhtAnnounce]);
+        setDhtAnnounce(val);
       }
       if (object[C_Event.Type.configDhtLookup] !== undefined) {
-        setDhtLookup(Number(object[C_Event.Type.configDhtLookup]));
+        const val = Number(object[C_Event.Type.configDhtLookup]);
+        setDhtLookup(val);
       }
       if (object[C_Event.Type.configDhtBootstrap] !== undefined) {
-        setDhtBootstrap(Number(object[C_Event.Type.configDhtBootstrap]));
+        const val = Number(object[C_Event.Type.configDhtBootstrap]);
+        setDhtBootstrap(val);
       }
       if (object[C_Event.Type.configLocalDiscovery] !== undefined) {
-        setLocalDiscovery(!!object[C_Event.Type.configLocalDiscovery]);
+        const val = !!object[C_Event.Type.configLocalDiscovery];
+        setLocalDiscovery(val);
       }
       if (object[C_Event.Type.configAutoDefine] !== undefined) {
-        setAutoDefine(!!object[C_Event.Type.configAutoDefine]);
+        const val = !!object[C_Event.Type.configAutoDefine];
+        setAutoDefine(val);
       }
       if (object[C_Event.Type.configExternal] !== undefined) {
-        setExternal(object[C_Event.Type.configExternal] as string);
+        const val = (object[C_Event.Type.configExternal] as string) || "";
+        setExternal(val);
       }
     }
   }, [value]);

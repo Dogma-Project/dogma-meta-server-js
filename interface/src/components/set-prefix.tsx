@@ -24,8 +24,7 @@ function SetPrefix() {
           prefix: value,
         },
       },
-      (res) => {
-        console.log("RES", res);
+      () => {
         dispatch({
           type: C_API.ApiRequestAction.set,
           value: {
@@ -37,7 +36,6 @@ function SetPrefix() {
   };
 
   useEffect(() => {
-    console.log("GET DATA", "PREFIXES");
     manager(
       {
         type: C_API.ApiRequestType.prefixes,

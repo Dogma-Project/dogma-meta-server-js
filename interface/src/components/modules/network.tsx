@@ -34,7 +34,6 @@ function Network() {
 
   useEffect(() => {
     if (value && value.type === C_API.ApiRequestType.network) {
-      console.log(value.payload);
       dispatch({
         type: C_API.ApiRequestAction.set,
         value: value.payload,

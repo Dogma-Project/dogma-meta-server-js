@@ -61,7 +61,7 @@ export const WebsocketProvider = (props: {
     send: (params: Omit<API.Request, "id">) => {
       !!isReady &&
         !!props.prefix &&
-        ws.current?.send("send", {
+        ws.current?.emit("push", {
           prefix: props.prefix,
           data: params,
         });

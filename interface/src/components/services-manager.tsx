@@ -37,7 +37,6 @@ function ServicesManager() {
   }, [isReady]);
 
   useEffect(() => {
-    console.log("PRE NOTIFY", value);
     if (value && value.type === C_API.ApiRequestType.services) {
       dispatch({
         type: C_API.ApiRequestAction.set, // edit
@@ -50,7 +49,6 @@ function ServicesManager() {
     const user = services.find(
       (item) => item.service === C_Event.Type.storageUser
     );
-    console.log("USER", user);
     if (!user || user.state <= 2) {
       return setStage(1);
     }

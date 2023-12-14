@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { C_Keys, C_Defaults, C_API } from "@dogma-project/constants-meta";
 
 import { WebsocketContext } from "../../context";
@@ -14,7 +14,7 @@ import NativeSelect from "@mui/material/NativeSelect";
 import InitScreenActions from "./parts/init-screen-actions";
 
 function CreateUser() {
-  const { isReady, value, send } = useContext(WebsocketContext);
+  const { isReady, send } = useContext(WebsocketContext);
   const [keyLength, setKeyLength] = useState(4096); // edit
   const [userName, setUserName] = useState(C_Defaults.userName);
 
@@ -34,12 +34,12 @@ function CreateUser() {
     }
   };
 
-  useEffect(() => {
-    if (value && value.type === C_API.ApiRequestType.keys) {
-      console.log("KEYS", value);
-      // handle errors
-    }
-  }, [value]);
+  // useEffect(() => {
+  //   if (value && value.type === C_API.ApiRequestType.keys) {
+  //     console.log("KEYS", value);
+  //     // handle errors
+  //   }
+  // }, [value]);
 
   return (
     <Container className="d-flex align-items-center justify-content-center flex-row min-vh-100">
