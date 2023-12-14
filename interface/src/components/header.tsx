@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useContext, useState } from "react";
 import { C_API } from "@dogma-project/constants-meta";
-import { AppContext } from "../context";
+import { AppContext, WebsocketContext } from "../context";
 function AppHeader({
   handleDrawerToggle,
 }: {
@@ -17,9 +17,10 @@ function AppHeader({
 }) {
   const {
     state: { prefix },
-    managerRequest,
     dispatch,
   } = useContext(AppContext);
+
+  const { manager } = useContext(WebsocketContext);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -33,17 +34,23 @@ function AppHeader({
 
   const logOut = () => {
     setAnchorEl(null);
-    managerRequest("DELETE", "/prefix/" + prefix, {
-      cb: () => {
+    manager(
+      {
+        type: C_API.ApiRequestType.prefix,
+        action: C_API.ApiRequestAction.delete,
+        payload: {
+          prefix,
+        },
+      },
+      () => {
         dispatch({
           type: C_API.ApiRequestAction.set,
           value: {
             prefix: "",
-            api: 0,
           },
         });
-      },
-    });
+      }
+    );
   };
 
   return (

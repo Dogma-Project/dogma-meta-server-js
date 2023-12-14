@@ -6,19 +6,13 @@ import { WebsocketProvider } from "../context/ws-context";
 
 function Page() {
   const {
-    state: { prefix, api },
+    state: { prefix },
   } = useContext(AppContext);
 
   return (
-    <>
-      {!prefix ? (
-        <SetPrefix></SetPrefix>
-      ) : (
-        <WebsocketProvider api={api}>
-          <ServicesManager></ServicesManager>
-        </WebsocketProvider>
-      )}
-    </>
+    <WebsocketProvider prefix={prefix}>
+      {!prefix ? <SetPrefix></SetPrefix> : <ServicesManager></ServicesManager>}
+    </WebsocketProvider>
   );
 }
 

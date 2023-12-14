@@ -1,7 +1,7 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/export.d.ts",
@@ -42,11 +42,12 @@
     "email": "rotegott@dogma-project.org"
   },
   "dependencies": {
-    "@dogma-project/constants-meta": "^0.7.8",
-    "@dogma-project/core-meta": "^0.8.3",
+    "@dogma-project/constants-meta": "^0.8.1",
+    "@dogma-project/core-meta": "^0.8.4",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.1",

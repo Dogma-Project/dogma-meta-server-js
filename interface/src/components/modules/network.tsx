@@ -36,7 +36,7 @@ function Network() {
     if (value && value.type === C_API.ApiRequestType.network) {
       console.log(value.payload);
       dispatch({
-        type: value.action,
+        type: C_API.ApiRequestAction.set,
         value: value.payload,
       });
     }

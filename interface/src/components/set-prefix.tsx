@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { AppContext } from "../context";
+import { AppContext, WebsocketContext } from "../context";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -10,44 +10,44 @@ import NativeSelect from "@mui/material/NativeSelect";
 import { C_API } from "@dogma-project/constants-meta";
 
 function SetPrefix() {
-  const {
-    state: { prefixes },
-    managerRequest,
-    dispatch,
-  } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
+  const { manager, isReady } = useContext(WebsocketContext);
 
   const [value, setValue] = useState("");
-
+  const [prefixes, setPrefixes] = useState<string[]>([]);
   const saveValue = () => {
-    managerRequest("PUT", "/prefix/" + value, {
-      cb: (data) => {
-        console.log("GOT", data);
-        const api = "api" in data ? data.api : undefined;
+    manager(
+      {
+        type: C_API.ApiRequestType.prefix,
+        action: C_API.ApiRequestAction.set,
+        payload: {
+          prefix: value,
+        },
+      },
+      (res) => {
+        console.log("RES", res);
         dispatch({
           type: C_API.ApiRequestAction.set,
           value: {
             prefix: value,
-            api: api,
           },
         });
-      },
-    });
+      }
+    );
   };
 
   useEffect(() => {
-    managerRequest("GET", "/prefixes", {
-      cb: (data) => {
-        if (Array.isArray(data)) {
-          dispatch({
-            type: C_API.ApiRequestAction.set,
-            value: {
-              prefixes: data,
-            },
-          });
-        }
+    console.log("GET DATA", "PREFIXES");
+    manager(
+      {
+        type: C_API.ApiRequestType.prefixes,
+        action: C_API.ApiRequestAction.get,
       },
-    });
-  }, []);
+      (res) => {
+        setPrefixes(res.payload || []);
+      }
+    );
+  }, [isReady]);
 
   return (
     <Container className="d-flex align-items-center justify-content-center flex-row min-vh-100">

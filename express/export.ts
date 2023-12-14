@@ -3,9 +3,10 @@ import http from "node:http";
 import express from "express";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
-
 import { C_Defaults } from "@dogma-project/constants-meta";
-
+import ConnectionController from "./controllers/connection";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { Socket } from "socket.io-client";
 // import corsMiddleware from "./middlewares/cors";
 // import { CLIENT_STATUSES } from "./constants";
 
@@ -23,10 +24,11 @@ const InterfaceHost = () => {
   const server = http.createServer(app);
   const io = new Server(server, {
     path: "/io",
+    cors: {
+      origin: "*",
+    },
   });
-  io.on("connection", (socket) => {
-    console.log("CONNECTED", socket);
-  });
+  io.on("connection", ConnectionController);
   server.listen(port, host, () => {
     console.info(
       "API",

@@ -37,10 +37,10 @@ function ServicesManager() {
   }, [isReady]);
 
   useEffect(() => {
+    console.log("PRE NOTIFY", value);
     if (value && value.type === C_API.ApiRequestType.services) {
-      console.log("!!!", "SERVICES", value.payload);
       dispatch({
-        type: value.action,
+        type: C_API.ApiRequestAction.set, // edit
         value: value.payload,
       });
     }

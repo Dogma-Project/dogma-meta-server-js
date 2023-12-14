@@ -1,81 +1,98 @@
+import { Socket, io } from "socket.io-client";
 import { createContext, useEffect, useRef, useState } from "react";
 import { API } from "@dogma-project/core-meta/types/types";
+import { API_PATH } from "../const";
 
 type ContextType = {
   isReady: number;
-  value: API.ApiRequest | null;
-  send: (params: object) => void;
+  value: API.Response | null;
+  send: (params: Omit<API.Request, "id">) => void;
+  request: (
+    params: Omit<API.Request, "id">,
+    cb: (response: Omit<API.Response, "id">) => void
+  ) => void;
+  manager: (
+    params: Omit<API.Request, "id">,
+    cb: (response: Omit<API.Response, "id">) => void
+  ) => void;
 };
 
 export const WebsocketContext = createContext<ContextType>({
   isReady: 0,
   value: null,
-  send: () => {},
+  send: () => null,
+  request: () => null,
+  manager: () => null,
 });
 
 export const WebsocketProvider = (props: {
   children: React.ReactNode;
-  api: number;
+  prefix: string;
 }) => {
   const [isReady, setIsReady] = useState(0);
-  const [retries, setRetries] = useState(0);
-  const [value, setVal] = useState(null);
-  const { api } = props;
-
-  const ws = useRef<WebSocket | null>(null);
+  const [value, setVal] = useState<Omit<API.Response, "id"> | null>(null);
+  const ws = useRef<Socket | null>(null);
 
   useEffect(() => {
-    if (api) {
-      const addr = `ws://${window.location.hostname}:${api}`;
-      ws.current = new WebSocket(addr);
+    const socket = io(API_PATH, {
+      path: "/io",
+    });
 
-      ws.current.onopen = () => {
-        setRetries(0);
-        setIsReady(1);
-      };
-      ws.current.onclose = (ev) => {
-        setIsReady(0);
-        console.log("WS closed. Reason:", ev.code);
-        if (retries <= 10) {
-          setTimeout(() => {
-            console.log("Reconnecting...");
-            setRetries(retries + 1);
-            ws.current = new WebSocket(addr);
-          }, 1000);
-        } else {
-          setRetries(0);
-          setIsReady(2); // offline mode
-        }
-      };
-      ws.current.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        console.log("WS", data.payload);
-        setVal(data);
-      };
-      ws.current.onerror = (err) => {
-        console.error("E", err);
-        ws.current?.close();
-      };
-      return () => {
-        ws.current?.close();
-      };
-    }
-  }, [api]);
+    socket.on("connect", () => {
+      setIsReady(1);
+    });
+    socket.on("disconnect", () => {
+      setIsReady(0);
+    });
+    // socket.on("foo", onFooEvent);
 
-  const ret = {
+    socket.on("notify", (response: Omit<API.Response, "id">) => {
+      setVal(response);
+    });
+
+    // handle errors
+
+    ws.current = socket;
+  }, []);
+
+  const obj = {
     isReady,
     value,
-    send: (params: object) => {
-      if (ws.current && !!isReady) {
-        ws.current.send(JSON.stringify(params));
-      } else {
-        console.warn("WS API is not ready");
+    send: (params: Omit<API.Request, "id">) => {
+      !!isReady &&
+        !!props.prefix &&
+        ws.current?.send("send", {
+          prefix: props.prefix,
+          data: params,
+        });
+    },
+    request: (
+      params: Omit<API.Request, "id">,
+      cb: (response: Omit<API.Response, "id">) => void
+    ) => {
+      !!isReady &&
+        !!props.prefix &&
+        ws.current?.emit(
+          "request",
+          {
+            prefix: props.prefix,
+            data: params,
+          },
+          cb
+        );
+    },
+    manager: (
+      params: Omit<API.Request, "id">,
+      cb: (response: Omit<API.Response, "id">) => void
+    ) => {
+      if (isReady) {
+        ws.current?.emit("manager", params, cb);
       }
     },
   };
 
   return (
-    <WebsocketContext.Provider value={ret}>
+    <WebsocketContext.Provider value={obj}>
       {props.children}
     </WebsocketContext.Provider>
   );
