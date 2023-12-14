@@ -48,6 +48,25 @@ export default function ConnectionController(socket: Socket) {
                 });
               }
               break;
+            case C_API.ApiRequestAction.delete:
+              if (data.payload && data.payload.prefix) {
+                const { prefix } = data.payload;
+                if (!(prefix in instances)) return console.warn("Not running");
+                const instance = instances[prefix];
+                instance
+                  .stop()
+                  .then(() => {
+                    cb({
+                      type: C_API.ApiRequestType.prefix,
+                      action: C_API.ApiRequestAction.result,
+                      payload: {
+                        result: true,
+                      },
+                    });
+                  })
+                  .catch(console.error);
+              }
+              break;
           }
           break;
         case C_API.ApiRequestType.prefixes:
@@ -74,7 +93,6 @@ export default function ConnectionController(socket: Socket) {
           }
           break;
       }
-      console.log("MANAGER 2", data);
     }
   );
   socket.on(

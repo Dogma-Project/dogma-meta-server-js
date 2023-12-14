@@ -5,8 +5,6 @@ import { Server } from "socket.io";
 import dotenv from "dotenv";
 import { C_Defaults } from "@dogma-project/constants-meta";
 import ConnectionController from "./controllers/connection";
-import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { Socket } from "socket.io-client";
 // import corsMiddleware from "./middlewares/cors";
 // import { CLIENT_STATUSES } from "./constants";
 

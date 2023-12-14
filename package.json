@@ -1,7 +1,7 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/export.d.ts",
