@@ -1,6 +1,2 @@
-type IFOptions = {
-    ifport: number;
-    host?: string;
-};
-declare const InterfaceHost: (options: IFOptions) => void;
+declare const InterfaceHost: () => void;
 export default InterfaceHost;

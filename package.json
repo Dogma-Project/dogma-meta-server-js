@@ -1,7 +1,7 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.7.23",
+  "version": "0.8.1",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/export.d.ts",
@@ -9,8 +9,8 @@
     "s:start": "tsc && node ./dist/index.js",
     "s:dev": "tsc-watch --onSuccess 'node ./dist/index.js'",
     "s:dev:empty": "tsc-watch --onSuccess 'node ./dist/index.js'",
-    "i:dev": "VITE_PORT=24600 vite --config ./interface/vite.config.ts",
-    "i:preview": "VITE_PORT=24600 vite --config ./interface/vite.config.ts preview",
+    "i:dev": "vite --config ./interface/vite.config.ts",
+    "i:preview": "vite --config ./interface/vite.config.ts preview",
     "s:test": "echo \"Error: no test specified\" && exit 1",
     "i:lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "a:dev": "npm run i:dev & npm run s:dev",
@@ -43,9 +43,10 @@
   },
   "dependencies": {
     "@dogma-project/constants-meta": "^0.7.8",
-    "@dogma-project/core-meta": "^0.7.33",
+    "@dogma-project/core-meta": "^0.8.3",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.1",

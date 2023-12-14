@@ -20,6 +20,19 @@ function ServicesManager() {
         type: C_API.ApiRequestType.services,
         action: C_API.ApiRequestAction.get,
       });
+      dispatch({
+        type: C_API.ApiRequestAction.set,
+        value: {
+          busy: false,
+        },
+      });
+    } else {
+      dispatch({
+        type: C_API.ApiRequestAction.set,
+        value: {
+          busy: true,
+        },
+      });
     }
   }, [isReady]);
 

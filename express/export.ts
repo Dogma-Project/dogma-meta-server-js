@@ -1,40 +1,33 @@
-import express from "express";
-import dotenv from "dotenv";
 import path from "node:path";
+import http from "node:http";
+import express from "express";
+import { Server } from "socket.io";
+import dotenv from "dotenv";
+
+import { C_Defaults } from "@dogma-project/constants-meta";
 
 // import corsMiddleware from "./middlewares/cors";
-import portMiddleware from "./middlewares/port";
-import { CLIENT_STATUSES } from "./constants";
+// import { CLIENT_STATUSES } from "./constants";
 
 dotenv.config();
 
-const app = express();
 // app.use(corsMiddleware);
-app.use(express.json());
+// app.use(express.json());
 
-const publicDir = path.join(__dirname, "/public");
-
-type IFOptions = {
-  ifport: number;
-  host?: string;
-};
-
-const InterfaceHost = (options: IFOptions) => {
-  const port = options.ifport;
-  const host = options.host || process.env.VITE_HOST || "127.0.0.1"; // edit
-
-  app.use("/", portMiddleware, express.static(publicDir));
-  app.all("/api", function (req, res) {
-    if (global.apiport) {
-      res.redirect(307, `http://${host}:${global.apiport}`);
-    } else {
-      res.status(CLIENT_STATUSES.NOT_FOUND).json({
-        message: "API port not set",
-      });
-    }
+const InterfaceHost = () => {
+  const app = express();
+  const publicDir = path.join(__dirname, "/public");
+  app.use("/", express.static(publicDir));
+  const host = process.env.SERVER_HOST || "127.0.0.1";
+  const port = Number(process.env.SERVER_PORT) || C_Defaults.prodManagerPort;
+  const server = http.createServer(app);
+  const io = new Server(server, {
+    path: "/io",
   });
-
-  app.listen(port, "0.0.0.0", () => {
+  io.on("connection", (socket) => {
+    console.log("CONNECTED", socket);
+  });
+  server.listen(port, host, () => {
     console.info(
       "API",
       `Serving Dogma Meta interface on [http://${host}:${port}]`
