@@ -58,7 +58,7 @@ export default function LeftMenu() {
         </ListItem>
 
         <ListItem key={"user"} disablePadding>
-          <ListItemButton href="#/user" disabled>
+          <ListItemButton href="#/user">
             <ListItemIcon>
               <ManageAccountsRoundedIcon />
             </ListItemIcon>

@@ -42,6 +42,7 @@ export default function ManagerController(
             });
             worker.on("exit", () => {
               delete instances[prefix];
+              console.log("Instance", prefix, "has stopped");
             });
             instances[prefix] = worker;
             cb({

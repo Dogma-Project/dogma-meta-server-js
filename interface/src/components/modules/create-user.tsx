@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { C_Keys, C_Defaults, C_API } from "@dogma-project/constants-meta";
 
 import { WebsocketContext } from "../../context";
@@ -12,34 +12,52 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import NativeSelect from "@mui/material/NativeSelect";
 import InitScreenActions from "./parts/init-screen-actions";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import ToggleButton from "@mui/material/ToggleButton";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import FilePresentRoundedIcon from "@mui/icons-material/FilePresentRounded";
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import Chip from "@mui/material/Chip";
 
 function CreateUser() {
   const { isReady, send } = useContext(WebsocketContext);
   const [keyLength, setKeyLength] = useState(4096); // edit
   const [userName, setUserName] = useState(C_Defaults.userName);
+  const [variant, setVariant] = useState(1);
+  const [file, setFile] = useState<File | null>(null);
 
   const saveValue = () => {
     if (isReady) {
       send({
         type: C_API.ApiRequestType.keys,
-        action: C_API.ApiRequestAction.set,
-        payload: {
-          name: userName,
-          length: keyLength,
-          type: C_Keys.Type.userKey,
-        },
+        action:
+          variant === 1
+            ? C_API.ApiRequestAction.set
+            : C_API.ApiRequestAction.push,
+        payload:
+          variant === 1
+            ? {
+                name: userName,
+                length: keyLength,
+                type: C_Keys.Type.userKey,
+              }
+            : file,
       });
     } else {
       console.warn("WS not ready");
     }
   };
 
-  // useEffect(() => {
-  //   if (value && value.type === C_API.ApiRequestType.keys) {
-  //     console.log("KEYS", value);
-  //     // handle errors
-  //   }
-  // }, [value]);
+  const onImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+      console.log("FILES", files);
+      setFile(files[0]);
+    }
+  };
 
   return (
     <Container className="d-flex align-items-center justify-content-center flex-row min-vh-100">
@@ -57,42 +75,109 @@ function CreateUser() {
             should keep it as a proof of your identity. Closest analog in
             centralized networks is login+password credentials.
           </Typography>
-
-          <TextField
-            fullWidth
-            id="standard-basic"
-            label="Set prefix"
-            variant="standard"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+          <Box
             sx={{
-              my: 3,
+              display: "flex",
+              justifyContent: "center",
+              my: 2,
             }}
-          />
-
-          <FormControl fullWidth>
-            <InputLabel variant="standard" htmlFor="uncontrolled-native">
-              Set User Key length
-            </InputLabel>
-            <NativeSelect
-              value={keyLength}
-              onChange={(e) => setKeyLength(Number(e.target.value))}
-              inputProps={{
-                name: "age",
-                id: "uncontrolled-native",
-              }}
-              sx={{
-                my: 3,
-              }}
+          >
+            <ToggleButtonGroup
+              color="primary"
+              value={variant}
+              exclusive
+              onChange={(_e, value: number) => setVariant(value)}
+              aria-label="Platform"
             >
-              <option value={2048}>2048 bits</option>
-              <option value={4096}>4096 bits (recommended)</option>
-            </NativeSelect>
-          </FormControl>
+              <ToggleButton value={1}>Create</ToggleButton>
+              <ToggleButton value={2}>Import</ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+
+          {variant === 1 ? (
+            <Box>
+              <TextField
+                fullWidth
+                id="standard-basic"
+                label="Set prefix"
+                variant="standard"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                sx={{
+                  my: 2,
+                }}
+              />
+
+              <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  Set User Key length
+                </InputLabel>
+                <NativeSelect
+                  value={keyLength}
+                  onChange={(e) => setKeyLength(Number(e.target.value))}
+                  inputProps={{
+                    name: "age",
+                    id: "uncontrolled-native",
+                  }}
+                  sx={{
+                    my: 2,
+                  }}
+                >
+                  <option value={2048}>2048 bits</option>
+                  <option value={4096}>4096 bits (recommended)</option>
+                </NativeSelect>
+              </FormControl>
+            </Box>
+          ) : (
+            <Box>
+              {file ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Chip
+                    icon={<FilePresentRoundedIcon />}
+                    onDelete={() => setFile(null)}
+                    deleteIcon={<HighlightOffRoundedIcon />}
+                    label={file.name}
+                  />
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    my: 2,
+                  }}
+                >
+                  <input
+                    accept=".cert"
+                    style={{ display: "none" }}
+                    id="import-cert-button"
+                    onChange={onImport}
+                    multiple
+                    type="file"
+                  />
+                  <label htmlFor="import-cert-button">
+                    <Button
+                      component="span"
+                      size={"large"}
+                      variant="outlined"
+                      startIcon={<CloudUploadIcon />}
+                    >
+                      Upload
+                    </Button>
+                  </label>
+                </Box>
+              )}
+            </Box>
+          )}
         </CardContent>
         <InitScreenActions
           onConfirm={saveValue}
-          confirmDisabled={userName.length < 3}
+          confirmDisabled={variant === 1 ? userName.length < 3 : !file}
         ></InitScreenActions>
       </Card>
     </Container>

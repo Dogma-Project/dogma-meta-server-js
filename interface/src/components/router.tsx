@@ -4,6 +4,7 @@ import Network from "./modules/network";
 import Services from "./modules/services";
 import Settings from "./modules/settings";
 import About from "./modules/about";
+import User from "./modules/user";
 
 const router = createHashRouter(
   [
@@ -26,6 +27,10 @@ const router = createHashRouter(
     {
       path: "/about",
       element: <About />,
+    },
+    {
+      path: "/user",
+      element: <User />,
     },
   ],
   {}
