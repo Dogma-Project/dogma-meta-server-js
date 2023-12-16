@@ -1,7 +1,7 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/export.d.ts",
@@ -17,6 +17,7 @@
     "s:build": "tsc --build",
     "i:build": "tsc -p ./interface/tsconfig.json && vite --config ./interface/vite.config.ts build",
     "a:build": "npm run s:build && npm run i:build",
+    "update-core": "npm install @dogma-project/core-meta@latest @dogma-project/constants-meta@latest ",
     "pkg": "tsc && pkg ."
   },
   "author": {
@@ -42,8 +43,8 @@
     "email": "rotegott@dogma-project.org"
   },
   "dependencies": {
-    "@dogma-project/constants-meta": "^0.8.1",
-    "@dogma-project/core-meta": "^0.8.17",
+    "@dogma-project/constants-meta": "^0.8.4",
+    "@dogma-project/core-meta": "^0.8.19",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "socket.io": "^4.7.2",
