@@ -10,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import NativeSelect from "@mui/material/NativeSelect";
 import InitScreenActions from "./parts/init-screen-actions";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -21,6 +20,8 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import FilePresentRoundedIcon from "@mui/icons-material/FilePresentRounded";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import Chip from "@mui/material/Chip";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 function CreateUser() {
   const { isReady, send } = useContext(WebsocketContext);
@@ -100,7 +101,7 @@ function CreateUser() {
                 fullWidth
                 id="standard-basic"
                 label="Set prefix"
-                variant="standard"
+                variant="outlined"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 sx={{
@@ -109,12 +110,13 @@ function CreateUser() {
               />
 
               <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                <InputLabel htmlFor="uncontrolled-native">
                   Set User Key length
                 </InputLabel>
-                <NativeSelect
+                <Select
                   value={keyLength}
                   onChange={(e) => setKeyLength(Number(e.target.value))}
+                  variant="outlined"
                   inputProps={{
                     name: "age",
                     id: "uncontrolled-native",
@@ -123,9 +125,9 @@ function CreateUser() {
                     my: 2,
                   }}
                 >
-                  <option value={2048}>2048 bits</option>
-                  <option value={4096}>4096 bits (recommended)</option>
-                </NativeSelect>
+                  <MenuItem value={2048}>2048 bits</MenuItem>
+                  <MenuItem value={4096}>4096 bits (recommended)</MenuItem>
+                </Select>
               </FormControl>
             </Box>
           ) : (

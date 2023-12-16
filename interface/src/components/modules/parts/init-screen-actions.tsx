@@ -12,9 +12,14 @@ export default function InitScreenActions(props: InitScreenActionsProps) {
       sx={{
         display: "flex",
         justifyContent: "right",
+        my: 2,
       }}
     >
-      <Button onClick={props.onConfirm} disabled={props.confirmDisabled}>
+      <Button
+        onClick={props.onConfirm}
+        disabled={props.confirmDisabled}
+        variant="contained"
+      >
         Next
       </Button>
       <Button disabled>Exit</Button>

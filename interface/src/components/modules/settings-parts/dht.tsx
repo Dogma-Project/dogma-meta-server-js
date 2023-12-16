@@ -1,7 +1,8 @@
 import { C_Connection } from "@dogma-project/constants-meta";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import NativeSelect from "@mui/material/NativeSelect";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 type SettingsDhtProps = {
   setter: (value: number) => void;
@@ -15,7 +16,7 @@ export default function SettingsDht(props: SettingsDhtProps) {
       <InputLabel variant="standard" htmlFor="dht-switch">
         {props.label}
       </InputLabel>
-      <NativeSelect
+      <Select
         value={props.value}
         onChange={(e) => props.setter(Number(e.target.value))}
         inputProps={{
@@ -26,11 +27,11 @@ export default function SettingsDht(props: SettingsDhtProps) {
           my: 3,
         }}
       >
-        <option value={C_Connection.Group.all}>All</option>
-        <option value={C_Connection.Group.friends}>Friends</option>
-        <option value={C_Connection.Group.selfUser}>Self nodes</option>
-        <option value={C_Connection.Group.nobody}>Nobody</option>
-      </NativeSelect>
+        <MenuItem value={C_Connection.Group.all}>All</MenuItem>
+        <MenuItem value={C_Connection.Group.friends}>Friends</MenuItem>
+        <MenuItem value={C_Connection.Group.selfUser}>Self nodes</MenuItem>
+        <MenuItem value={C_Connection.Group.nobody}>Nobody</MenuItem>
+      </Select>
     </FormControl>
   );
 }

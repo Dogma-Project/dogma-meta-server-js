@@ -10,8 +10,9 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import NativeSelect from "@mui/material/NativeSelect";
 import InitScreenActions from "./parts/init-screen-actions";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 function CreateNode() {
   const { isReady, send } = useContext(WebsocketContext);
@@ -64,7 +65,7 @@ function CreateNode() {
             fullWidth
             id="standard-basic"
             label="Set prefix"
-            variant="standard"
+            variant="outlined"
             value={nodeName}
             onChange={(e) => setNodeName(e.target.value)}
             sx={{
@@ -73,10 +74,10 @@ function CreateNode() {
           />
 
           <FormControl fullWidth>
-            <InputLabel variant="standard" htmlFor="uncontrolled-native">
+            <InputLabel variant="outlined" htmlFor="uncontrolled-native">
               Set Node Key length
             </InputLabel>
-            <NativeSelect
+            <Select
               value={keyLength}
               onChange={(e) => setKeyLength(Number(e.target.value))}
               inputProps={{
@@ -87,10 +88,10 @@ function CreateNode() {
                 my: 3,
               }}
             >
-              <option value={1024}>1024 bits (not recommended)</option>
-              <option value={2048}>2048 bits (recommended)</option>
-              <option value={4096}>4096 bits (best choise)</option>
-            </NativeSelect>
+              <MenuItem value={1024}>1024 bits (not recommended)</MenuItem>
+              <MenuItem value={2048}>2048 bits (recommended)</MenuItem>
+              <MenuItem value={4096}>4096 bits (best choise)</MenuItem>
+            </Select>
           </FormControl>
         </CardContent>
         <InitScreenActions

@@ -5,9 +5,15 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import StarIcon from "@mui/icons-material/Star";
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
+import QuestionMarkRoundedIcon from "@mui/icons-material/QuestionMarkRounded";
+import DoDisturbOffRoundedIcon from "@mui/icons-material/DoDisturbOffRounded";
+import DoNotDisturbOnTotalSilenceRoundedIcon from "@mui/icons-material/DoNotDisturbOnTotalSilenceRounded";
 
 function Network() {
   const {
@@ -55,21 +61,38 @@ function Network() {
               aria-controls="panel3bh-content"
               id="panel3bh-header"
             >
-              <Typography sx={{ flexGrow: 1 }}>{user.name}</Typography>
-              {user.current && <StarIcon />}
+              <Stack direction="row" alignItems="center" gap={1}>
+                {user.current && <AccountCircleRoundedIcon color="info" />}
+                {user.requested && <QuestionMarkRoundedIcon color="warning" />}
+                <Typography sx={{ flexGrow: 1 }}>{user.name}</Typography>
+              </Stack>
             </AccordionSummary>
             {user.requested ? (
               <AccordionDetails key={`nodebox-${i}`}>
-                <Typography>ADD user</Typography>
+                <Typography>{user.id}</Typography>
+                <Stack direction="row" spacing={1}>
+                  <Button startIcon={<PersonAddAltRoundedIcon />}>Add</Button>
+                  <Button startIcon={<DoDisturbOffRoundedIcon />}>
+                    Decline
+                  </Button>
+                  <Button
+                    color="error"
+                    startIcon={<DoNotDisturbOnTotalSilenceRoundedIcon />}
+                  >
+                    Ban
+                  </Button>
+                </Stack>
               </AccordionDetails>
             ) : (
               user.nodes.map((node, j) => {
                 return (
                   <AccordionDetails key={`nodebox-${i}-${j}`}>
-                    <Typography>
-                      {node.current && <StarIcon />}
-                      {node.name}
-                    </Typography>
+                    <Stack direction="row" alignItems="center" gap={1}>
+                      {node.current && (
+                        <AccountCircleRoundedIcon color="info" />
+                      )}
+                      <Typography>{node.name}</Typography>
+                    </Stack>
                   </AccordionDetails>
                 );
               })

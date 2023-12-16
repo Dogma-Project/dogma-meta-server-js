@@ -1,13 +1,16 @@
 import { useState, useContext, useEffect } from "react";
 import { AppContext, WebsocketContext } from "../context";
-import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InitScreenActions from "./modules/parts/init-screen-actions";
-import NativeSelect from "@mui/material/NativeSelect";
 import { C_API } from "@dogma-project/constants-meta";
+import Box from "@mui/material/Box";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
 function SetPrefix() {
   const { dispatch } = useContext(AppContext);
@@ -47,8 +50,21 @@ function SetPrefix() {
     );
   }, [isReady]);
 
+  // height: 100vh;
+  // width: 100vw;
+  // align-items: center;
+  // justify-content: center;
+
   return (
-    <Container className="d-flex align-items-center justify-content-center flex-row min-vh-100">
+    <Box
+      sx={{
+        display: "flex",
+        height: "100vh",
+        width: "100vw",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Card>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -60,33 +76,35 @@ function SetPrefix() {
           </Typography>
 
           {prefixes.length && (
-            <NativeSelect
-              onChange={(e) => setValue(e.target.value)}
-              fullWidth
-              inputProps={{
-                name: "mda",
-                id: "uncontrolled-native",
-              }}
-              sx={{
-                my: 3,
-              }}
-            >
-              <option key="create_new" value={""} defaultValue={""}>
-                Create new
-              </option>
-              {prefixes.map((p, i) => (
-                <option key={"prefix-" + i} value={p}>
-                  {p}
-                </option>
-              ))}
-            </NativeSelect>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel id="select-prefix-options">Select prefix</InputLabel>
+              <Select
+                onChange={(e) => setValue(String(e.target.value))}
+                inputProps={{
+                  name: "prefixes",
+                  id: "select-prefix-options",
+                }}
+                sx={{
+                  my: 3,
+                }}
+              >
+                <MenuItem key="create_new" value={""}>
+                  Create new
+                </MenuItem>
+                {prefixes.map((p, i) => (
+                  <MenuItem key={"prefix-" + i} value={p}>
+                    {p}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           )}
 
           <TextField
             fullWidth
             id="standard-basic"
-            label="Set prefix"
-            variant="standard"
+            label="Or create a new prefix"
+            variant="outlined"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
@@ -96,7 +114,7 @@ function SetPrefix() {
           confirmDisabled={value.length < 3}
         ></InitScreenActions>
       </Card>
-    </Container>
+    </Box>
   );
 }
 

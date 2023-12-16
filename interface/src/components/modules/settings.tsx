@@ -7,8 +7,6 @@ import {
 } from "@dogma-project/constants-meta";
 
 import { AppContext, WebsocketContext } from "../../context";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import SettingsRouter from "./settings-parts/router";
@@ -117,66 +115,64 @@ export default function SettingsPage() {
   }, [value]);
 
   return (
-    <Card>
-      <CardContent>
-        <Typography gutterBottom variant="h5">
-          Settings
-        </Typography>
+    <>
+      <Typography gutterBottom variant="h5">
+        Settings
+      </Typography>
 
-        <SettingsRouter router={router} setRouter={setRouter}></SettingsRouter>
+      <SettingsRouter router={router} setRouter={setRouter}></SettingsRouter>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <SettingsDht
-              value={dhtAnnounce}
-              label="DHT Announce"
-              setter={setDhtAnnounce}
-            ></SettingsDht>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <SettingsDht
-              value={dhtLookup}
-              label="DHT lookup"
-              setter={setDhtLookup}
-            ></SettingsDht>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <SettingsDht
-              value={dhtBootstrap}
-              label="DHT bootstrap"
-              setter={setDhtBootstrap}
-            ></SettingsDht>
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
+          <SettingsDht
+            value={dhtAnnounce}
+            label="DHT Announce"
+            setter={setDhtAnnounce}
+          ></SettingsDht>
         </Grid>
-
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <SettingsSwitch
-              value={localDiscovery}
-              label="Local discovery"
-              setter={setLocalDiscovery}
-            ></SettingsSwitch>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <SettingsSwitch
-              value={autoDefine}
-              label="Auto define IP"
-              setter={setAutoDefine}
-            ></SettingsSwitch>
-          </Grid>
+        <Grid item xs={12} md={4}>
+          <SettingsDht
+            value={dhtLookup}
+            label="DHT lookup"
+            setter={setDhtLookup}
+          ></SettingsDht>
         </Grid>
+        <Grid item xs={12} md={4}>
+          <SettingsDht
+            value={dhtBootstrap}
+            label="DHT bootstrap"
+            setter={setDhtBootstrap}
+          ></SettingsDht>
+        </Grid>
+      </Grid>
 
-        <SettingsExternal
-          setter={setExternal}
-          value={external}
-          label="External IP check services"
-          disabled={!autoDefine}
-        ></SettingsExternal>
-      </CardContent>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <SettingsSwitch
+            value={localDiscovery}
+            label="Local discovery"
+            setter={setLocalDiscovery}
+          ></SettingsSwitch>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SettingsSwitch
+            value={autoDefine}
+            label="Auto define IP"
+            setter={setAutoDefine}
+          ></SettingsSwitch>
+        </Grid>
+      </Grid>
+
+      <SettingsExternal
+        setter={setExternal}
+        value={external}
+        label="External IP check services"
+        disabled={!autoDefine}
+      ></SettingsExternal>
       <SaveCardAction
         onConfirm={saveValue}
         confirmDisabled={router < 1024 || router > 65536}
       ></SaveCardAction>
-    </Card>
+    </>
   );
 }

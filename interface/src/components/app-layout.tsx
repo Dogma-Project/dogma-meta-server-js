@@ -7,7 +7,8 @@ import LeftMenu from "./left-menu";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Toolbar from "@mui/material/Toolbar";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -17,58 +18,62 @@ function AppLayout() {
   };
 
   return (
-    <Box>
-      <AppHeader handleDrawerToggle={handleDrawerToggle}></AppHeader>
-      <Toolbar></Toolbar>
-      <Box sx={{ display: "flex" }}>
-        <Box
-          component="nav"
-          sx={{
-            flexShrink: 0,
+    <Box display="flex" sx={{ width: "100%" }}>
+      <Box
+        component="nav"
+        sx={{
+          width: `300px`,
+          flexShrink: 1,
+          display: { xs: "none", md: "block" },
+        }}
+        aria-label="mailbox folders"
+      >
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
           }}
-          aria-label="mailbox folders"
+          PaperProps={{
+            sx: {
+              boxSizing: "border-box",
+              width: "300px",
+            },
+          }}
         >
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: "300px",
-              },
-            }}
-          >
-            <LeftMenu></LeftMenu>
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: "none", sm: "block" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: "300px",
-                position: "relative",
-              },
-            }}
-            open
-          >
-            <LeftMenu></LeftMenu>
-          </Drawer>
-        </Box>
+          <LeftMenu></LeftMenu>
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          anchor="left"
+          PaperProps={{
+            sx: {
+              width: "300px",
+              boxSizing: "border-box",
+            },
+          }}
+          sx={{
+            width: "300px",
+          }}
+          open
+        >
+          <LeftMenu></LeftMenu>
+        </Drawer>
+      </Box>
 
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-          }}
-        >
-          <RouterProvider router={router} />
+      <Box
+        sx={{
+          flexGrow: 1,
+        }}
+      >
+        <AppHeader handleDrawerToggle={handleDrawerToggle}></AppHeader>
+        <Box component="main" sx={{ p: 2 }}>
+          <Card>
+            <CardContent>
+              <RouterProvider router={router} />
+            </CardContent>
+          </Card>
         </Box>
       </Box>
     </Box>

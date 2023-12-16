@@ -3,17 +3,16 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-// import Toolbar from "@mui/material/Toolbar";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import CellTowerRoundedIcon from "@mui/icons-material/CellTowerRounded";
 import SourceRoundedIcon from "@mui/icons-material/SourceRounded";
 import MailRoundedIcon from "@mui/icons-material/MailRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import MiscellaneousServicesRoundedIcon from "@mui/icons-material/MiscellaneousServicesRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
+import HubRoundedIcon from "@mui/icons-material/HubRounded";
 
 export default function LeftMenu() {
   return (
@@ -33,7 +32,7 @@ export default function LeftMenu() {
         <ListItem key={"network"} disablePadding>
           <ListItemButton href="#/network">
             <ListItemIcon>
-              <CellTowerRoundedIcon />
+              <HubRoundedIcon />
             </ListItemIcon>
             <ListItemText primary="Network" />
           </ListItemButton>

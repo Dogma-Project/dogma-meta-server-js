@@ -11,7 +11,7 @@ export default function SettingsRouter(props: InitScreenActionsProps) {
       fullWidth
       id="standard-basic"
       label="Router port "
-      variant="standard"
+      variant="outlined"
       type="number"
       value={props.router}
       onChange={(e) => props.setRouter(Number(e.target.value))}

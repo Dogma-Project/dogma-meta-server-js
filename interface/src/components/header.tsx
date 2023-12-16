@@ -54,13 +54,7 @@ function AppHeader({
   };
 
   return (
-    <AppBar
-      position="fixed"
-      // sx={{
-      //   width: { sm: `calc(100% - ${drawerWidth})` },
-      //   ml: { sm: drawerWidth },
-      // }}
-    >
+    <AppBar position="sticky">
       <Toolbar>
         {handleDrawerToggle && (
           <IconButton
@@ -68,7 +62,7 @@ function AppHeader({
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
