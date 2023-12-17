@@ -1,24 +1,19 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/export.d.ts",
   "scripts": {
-    "s:start": "tsc && node ./dist/index.js",
-    "s:dev": "tsc-watch --onSuccess 'node ./dist/index.js'",
-    "s:dev:empty": "tsc-watch --onSuccess 'node ./dist/index.js'",
-    "i:dev": "vite --config ./interface/vite.config.ts",
-    "i:preview": "vite --config ./interface/vite.config.ts preview",
-    "s:test": "echo \"Error: no test specified\" && exit 1",
-    "i:lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "a:dev": "npm run i:dev & npm run s:dev",
-    "s:build": "tsc --build",
-    "i:build": "tsc -p ./interface/tsconfig.json && vite --config ./interface/vite.config.ts build",
-    "a:build": "npm run s:build && npm run i:build",
-    "update-core": "npm install @dogma-project/core-meta@latest @dogma-project/constants-meta@latest ",
-    "pkg": "tsc && pkg ."
+    "start": "tsc && node ./dist/index.js",
+    "dev": "tsc-watch --onSuccess 'node ./dist/index.js'",
+    "dev:empty": "tsc-watch --onSuccess 'node ./dist/index.js'",
+    "build": "tsc --build",
+    "postinstall": "tsc && node ./dist/postinstall.js",
+    "update-core": "npm install @dogma-project/core-meta@latest @dogma-project/constants-meta@latest @dogma-project/interface-meta@latest && npm run postinstall",
+    "pkg": "tsc && pkg .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
     "name": "Rotegott",
@@ -45,36 +40,20 @@
   "dependencies": {
     "@dogma-project/constants-meta": "^0.8.5",
     "@dogma-project/core-meta": "^0.8.19",
+    "@dogma-project/interface-meta": "^0.8.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io": "^4.7.2"
   },
   "devDependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@fontsource/ubuntu": "^5.0.8",
-    "@mui/icons-material": "^5.14.19",
-    "@mui/material": "^5.14.20",
-    "@mui/styled-engine-sc": "^6.0.0-alpha.7",
     "@types/express": "^4.17.21",
     "@types/node": "^20.9.4",
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
-    "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.55.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
     "pkg": "^5.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1",
-    "styled-components": "^6.1.1",
     "tsc-watch": "^6.0.4",
-    "typescript": "^5.3.2",
-    "vite": "^5.0.7"
+    "typescript": "^5.3.2"
   },
   "pkg": {
     "outputPath": "./build",
