@@ -45,7 +45,7 @@
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
-    "@dogma-project/interface-meta": "^0.8.1",
+    "@dogma-project/interface-meta": "^0.8.2",
     "@types/express": "^4.17.21",
     "@types/node": "^20.9.4",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
