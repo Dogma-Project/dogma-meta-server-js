@@ -22,18 +22,20 @@ export default function ConnectionController(socket: Socket) {
     "request",
     (
       params: { prefix: string; data: Omit<API.Request, "id"> },
-      cb: (result: Omit<API.Response, "id">) => void
+      cb: (result: Omit<API.Response, "id">) => void,
+      errCb?: (result: API.ResponseError) => void
     ) => {
       const instance = instances[params.prefix];
       if (instance) {
         instance
           .request(params.data)
-          .then((res) => {
-            cb(res);
-          })
-          .catch(console.error);
+          .then(cb)
+          .catch((err: API.ResponseError) => {
+            errCb && errCb(err);
+          });
       } else {
-        // offline
+        // errCb && errCb({
+        // });
       }
     }
   );
@@ -42,6 +44,7 @@ export default function ConnectionController(socket: Socket) {
     (params: { prefix: string; data: Omit<API.Request, "id"> }) => {
       const instance = instances[params.prefix];
       if (instance) {
+        console.debug("INSTANCE SEND", params.data);
         instance.send(params.data);
       } else {
         // offline

@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 
-import { C_API } from "@dogma-project/constants-meta";
+import { C_API, C_System } from "@dogma-project/constants-meta";
 import { API } from "@dogma-project/core-meta/types/types";
 import RunWorker from "@dogma-project/core-meta";
 import { Socket } from "socket.io";
@@ -35,6 +35,7 @@ export default function ManagerController(
               });
             const worker = new RunWorker({
               prefix,
+              loglevel: C_System.LogLevel.debug,
             });
             worker.on("notify", (payload) => {
               this.emit("notify", payload);
