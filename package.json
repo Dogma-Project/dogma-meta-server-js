@@ -1,7 +1,7 @@
 {
   "name": "@dogma-project/headless-meta",
   "description": "Dogma headless app",
-  "version": "0.8.15",
+  "version": "0.8.16",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
   "types": "./types/export.d.ts",
@@ -10,6 +10,7 @@
     "dev": "tsc-watch --onSuccess 'node ./dist/index.js'",
     "dev:empty": "tsc-watch --onSuccess 'node ./dist/index.js'",
     "build": "tsc --build",
+    "c:build": "rm -rf ./dist/* && rm -rf ./types/* && npm run build && npm run postinstall",
     "postinstall": "node ./postinstall.js",
     "update-core": "npm install @dogma-project/core-meta@latest @dogma-project/constants-meta@latest && npm install -D @dogma-project/interface-meta@latest && npm run postinstall",
     "pkg": "tsc && pkg .",
@@ -39,7 +40,7 @@
   },
   "dependencies": {
     "@dogma-project/constants-meta": "^0.8.7",
-    "@dogma-project/core-meta": "^0.8.25",
+    "@dogma-project/core-meta": "^0.8.28",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "socket.io": "^4.7.2"
