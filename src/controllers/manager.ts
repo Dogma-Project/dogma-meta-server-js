@@ -2,10 +2,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 
-import { C_API, C_System } from "@dogma-project/constants-meta";
-import { API } from "@dogma-project/core-meta/types/types";
-import RunWorker from "@dogma-project/core-meta";
+import { API } from "@dogma-project/core-meta/declarations/types";
+import { RunWorker, Constants } from "@dogma-project/core-meta";
 import { Socket } from "socket.io";
+
+const { C_API, C_System } = Constants;
 
 export default function ManagerController(
   this: Socket,
@@ -29,7 +30,7 @@ export default function ManagerController(
                 action: C_API.ApiRequestAction.result,
                 payload: {
                   result: false,
-                  id: instances[prefix].id,
+                  id: instances[prefix].getId(),
                   message: "Already running",
                 },
               });
@@ -51,7 +52,7 @@ export default function ManagerController(
               action: C_API.ApiRequestAction.result,
               payload: {
                 result: true,
-                id: worker.id,
+                id: worker.getId(),
               },
             });
           }

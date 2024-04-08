@@ -3,8 +3,11 @@ import http from "node:http";
 import express from "express";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
-import { C_Defaults } from "@dogma-project/constants-meta";
 import ConnectionController from "./controllers/connection";
+import { Constants } from "@dogma-project/core-meta";
+
+const { C_Defaults } = Constants;
+
 // import corsMiddleware from "./middlewares/cors";
 // import { CLIENT_STATUSES } from "./constants";
 

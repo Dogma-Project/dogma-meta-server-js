@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
-import RunWorker from "@dogma-project/core-meta";
-import { API } from "@dogma-project/core-meta/types/types";
+import { RunWorker } from "@dogma-project/core-meta";
+import { API } from "@dogma-project/core-meta/declarations/types";
 import ManagerController from "./manager";
 
 let connections: Socket[] = [];
