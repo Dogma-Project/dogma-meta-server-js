@@ -1,16 +1,16 @@
 {
-  "name": "@dogma-project/headless-meta",
-  "description": "Dogma headless app",
+  "name": "@dogma-project/server-meta",
+  "description": "Dogma Meta server app",
   "version": "0.9.1",
   "main": "./dist/export.js",
   "bin": "./dist/index.js",
-  "types": "./types/export.d.ts",
+  "types": "./declarations/export.d.ts",
   "scripts": {
     "start": "tsc && node ./dist/index.js",
     "dev": "tsc-watch --onSuccess 'node ./dist/index.js'",
     "dev:empty": "tsc-watch --onSuccess 'node ./dist/index.js'",
-    "build": "tsc --build",
-    "c:build": "rm -rf ./dist/* && rm -rf ./types/* && npm run build",
+    "build": "tsc",
+    "c:build": "rm -rf ./dist/* && rm -rf ./declarations/* && npm run build",
     "pkg": "tsc && pkg .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,17 +23,17 @@
   "keywords": [
     "dogma",
     "dogma meta",
-    "dogma-headless",
+    "dogma meta server",
     "decentralization",
     "p2p"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dogma-Project/dogma-meta-headless-js"
+    "url": "https://github.com/Dogma-Project/dogma-meta-server-js"
   },
   "bugs": {
-    "url": "https://github.com/Dogma-Project/dogma-meta-headless-js/issues",
+    "url": "https://github.com/Dogma-Project/dogma-meta-server-js/issues",
     "email": "rotegott@dogma-project.org"
   },
   "dependencies": {

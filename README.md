@@ -1,10 +1,10 @@
-# Dogma Meta (Headless)
+# Dogma Meta (Server)
 
 **Dogma Meta** is a cross-platform, non-anonymous, privacy-oriented decentralized communication platform written in TypeScript.
 
 ## About package
 
-This package is a part of **Dogma Meta** Application, which is currently in active development. "Headless" is a standalone app to run on a server without GUI, like a service. You can control basic functions with REST API combined with SSE callback (Server-Sent Events);
+This package is a part of **Dogma Meta** Application, which is currently in active development. **Dogma Meta** (Server) is a standalone app to run on a server without GUI, like a web service. You can control basic functions via Websocket (Socket.IO) API.
 
 ## You can use **Dogma Meta** platform to:
 
@@ -23,8 +23,8 @@ This package is a part of **Dogma Meta** Application, which is currently in acti
 ## Installation
 
 ```
-git clone https://github.com/Dogma-Project/dogma-meta-headless-js
-cd dogma-meta-headless-js
+git clone https://github.com/Dogma-Project/dogma-meta-server-js
+cd dogma-meta-server-js
 npm install
 npm run build
 ```
